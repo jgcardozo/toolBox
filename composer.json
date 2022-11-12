@@ -8,6 +8,7 @@
         "php": "^7.3|^8.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "jeroennoten/laravel-adminlte": "^3.8",
         "laravel/framework": "^8.75",
         "laravel/jetstream": "^2.9",
         "laravel/sanctum": "^2.11",
@@ -21,7 +22,8 @@
         "mockery/mockery": "^1.4.4",
         "nascent-africa/jetstrap": "^2.5",
         "nunomaduro/collision": "^5.10",
-        "phpunit/phpunit": "^9.5.10"
+        "phpunit/phpunit": "^9.5.10",
+        "sven/artisan-view": "^3.4"
     },
     "autoload": {
         "psr-4": {

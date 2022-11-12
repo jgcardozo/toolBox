@@ -1,13 +1,14 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Usuarios')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Usuarios</h1>
+    <button class="btn btn-info">Crear Usuario</button>
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.  agregar /user/profile</p>
+    <p>Welcome to usuarios</p>
 @stop
 
 @section('css')
