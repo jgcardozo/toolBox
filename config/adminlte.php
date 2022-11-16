@@ -307,11 +307,6 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
         */
 
         [
@@ -319,26 +314,30 @@ return [
             'route'  => 'dashboard',
             'icon' => 'fas fa-fw fa-home',
             'label' => 'Inicio',
-            'label_color'=>'danger'
+            'label_color'=>'success'
         ],
         [
-            'text'    => 'Usuarios',
+            'text' => 'Usuarios',
             'icon' => 'fas fa-fw fa-user-shield',
+            'can'  => 'users.settings',
             'submenu' => [
                 [
-                    'text' => 'Usuarios',
-                    'route'  => 'user',
-                    'icon' => 'fas fa-fw fa-user',
+                    'text'  => 'Usuarios',
+                    'route' => 'users.index',
+                    'icon'  => 'fas fa-fw fa-user',
+                    'can'   => 'users.index',
                 ],
                 [
-                    'text' => 'Roles',
-                    'url'  => '#',
-                    'icon' => 'fas fa-fw fa-user-shield',
+                    'text'  => 'Roles',
+                    'route' => 'roles.index',
+                    'icon'  => 'fas fa-fw fa-user-shield',
+                    'can'   => 'roles.index',
                 ],
                 [
-                    'text' => 'Permisos',
-                    'url'  => '#',
-                    'icon' => 'fas fa-fw fa-lock'
+                    'text'  => 'Permisos',
+                    'url'   => '#',
+                    'icon'  => 'fas fa-fw fa-lock',
+                    'can'   => 'permissions.index',
                 ],
             ],
         ],
@@ -358,25 +357,30 @@ return [
                 ],
             ],
         ],
-        ['header' => 'labels'],
         [
-            'text'       => 'Cotizaciones',
-            'icon_color' => 'red',
+            'text'       => 'Products',
+            //'icon'        => 'fas fa-cart-flatbed',
+            //'icon_color' => 'red',
             'url'        => '#',
+            'submenu' => [
+                [
+                    'text' => 'Inventario',
+                    'url'  => '#',
+                    //'icon' => 'fas fa-fw fa-trunk-ramp-box',
+                ],
+                [
+                    'text' => 'Procesos',
+                    'url'  => '#',
+                    //'icon' => 'fas fa-fw fa-user-tie',
+                ],
+            ],
         ],
         [
-            'text'       => 'Inventario',
-            'icon_color' => 'yellow',
-            'url'        => '#',
+            'text' => 'Cotizaciones',
+            'url'  => '#',
+            //'icon' => 'fas fa-fw fa-money-check-dollar',
         ],
-        [
-            'text'       => 'Reportes',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
+       
   
     ],
 
@@ -532,5 +536,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];

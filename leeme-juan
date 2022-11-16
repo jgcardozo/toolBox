@@ -11,3 +11,15 @@ https://github.com/svenluijten/artisan-view
 
 
 # install roles and permissions
+https://spatie.be/docs/laravel-permission/v5/installation-laravel
+
+
+
+# otros de interes
+https://github.com/jgcardozo/intraLaravel/
+https://www.kommo.com/es/
+
+
+# generador de crud - livewire
+https://www.youtube.com/watch?v=4YJStyb9kJA
+composer require flightsadmin/livewire-crud
