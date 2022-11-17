@@ -8,7 +8,14 @@ use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
-    protected $paginationTheme = "bootstrap";
+
+    public function __construct()
+    {
+        $this->middleware('can:roles.index')->only('index');
+        $this->middleware('can:roles.create')->only('create', 'store');
+        $this->middleware('can:roles.edit')->only('edit', 'update');
+        $this->middleware('can:roles.destroy')->only('destroy');
+    }//construct
     
     public function index()
     {

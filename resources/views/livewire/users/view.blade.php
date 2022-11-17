@@ -29,10 +29,24 @@
                                             @endforeach
                                         @endif
                                     </td>
-                                    <td width="10px">
+                                    <td>
                                         @can('users.edit')
-                                            <a class="btn btn-sm btn-primary"
-                                                href="{{ route('users.edit', $user) }}">Editar</a>
+                                            <a class="btn btn-sm btn-info" href="{{ route('users.edit', $user) }}">
+                                                <i class="fa fa-pen mr-2"></i>Editar</a>
+                                            </a>
+                                        @endcan
+                                    </td>
+                                    <td>
+                                        @can('users.destroy')
+                                            {!! Form::open([
+                                                'method' => 'DELETE',
+                                                'route' => ['users.destroy', $user],
+                                                'onsubmit' => 'return confirm("Are you sure ?")',
+                                            ]) !!}
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="fa fa-trash mr-2"></i>Elminar
+                                            </button>
+                                            {!! Form::close() !!}
                                         @endcan
                                     </td>
                                 </tr>

@@ -359,7 +359,7 @@ return [
         ],
         [
             'text'       => 'Products',
-            //'icon'        => 'fas fa-cart-flatbed',
+            'icon'        => 'fas fa-fw fa-cart-arrow-down',
             //'icon_color' => 'red',
             'url'        => '#',
             'submenu' => [

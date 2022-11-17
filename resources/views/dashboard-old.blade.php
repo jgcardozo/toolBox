@@ -7,3 +7,12 @@
 
     <x-jet-welcome />
 </x-app-layout>
+
+    <form action="{{ route('roles.destroy', $role) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                    </form>
+
+
+                                     {!! Form::submit('Guardar', ['class' => 'btn btn-info']) !!}

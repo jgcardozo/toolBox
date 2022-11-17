@@ -36,7 +36,10 @@
 
 <div class="row">
     <div class="col-sm-12 text-center">
-        <a href="{{route('roles.index')}}" class="btn btn-secondary">Cancelar</a>
-        {!! Form::submit('Guardar', ['class' => 'btn btn-info']) !!}
+        <a href="{{ route('roles.index') }}" class="btn btn-secondary"><i class="fa fa-backward mr-2"></i>Cancelar</a>
+
+        <button type="submit" class="btn btn-info">
+            <i class="fa fa-sd-card mr-2"></i>Guardar
+        </button>
     </div>
 </div>

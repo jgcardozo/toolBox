@@ -20,7 +20,7 @@ class Users extends Component
             ->orWhere('email', 'LIKE', '%' . $this->search . '%')
             ->paginate();
             //dd($users);
-        return view('livewire.users-index', compact('users'));
+        return view('livewire.users.view', compact('users'));
     } //render
 
 

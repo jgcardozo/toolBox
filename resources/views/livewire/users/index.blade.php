@@ -12,12 +12,12 @@
 @stop
 
 @section('content')
-    @if (session('info'))
-        <div class="alert alert-info">
-            <strong>{{ session('info') }}</strong>
-        </div>
-    @endif
     <div class="container-fluid">
+        @if (session('info'))
+            <div class="alert alert-info">
+                <strong>{{ session('info') }}</strong>
+            </div>
+        @endif
         @livewire('users')
     </div>
 @stop

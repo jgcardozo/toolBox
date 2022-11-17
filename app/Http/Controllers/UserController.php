@@ -18,32 +18,57 @@ class UserController extends Controller
     }//construct
     
     public function index(){  
-        return view('users.index');
+        return view('livewire.users.index');
     }//index
 
     public function edit(User $user){
         $roles = Role::all();
-        return view('users.edit', compact('user', 'roles'));
+        return view('livewire.users.edit', compact('user', 'roles'));
     }//edit
 
     public function update(Request $request, User $user){
-        return $request;
+        $request->validate([
+            'name' => 'required|min:6|max:40',
+        ]);
+        $user->update($request->only(['name']));
         $user->roles()->sync($request->roles);
         return redirect()->route('users.index')->with('info', 'Guardado Exitosamente');
     }//update
 
 
     public function create(){
+        $roles = Role::all();
+        return view('livewire.users.create', compact('roles'));
+    }//create
 
-    }
+    public function store(Request $request){
+        $request->validate([
+            'name' => 'required|min:6|max:40',
+            'email' => 'required|email',
+            //'password' => 'required|min:8',
+        ]);
 
-    public function store(){
+        //$newUser = User::create($request->only(['name', 'email']));
+        $newUser = new User();
+        $newUser->name     = $request->name;
+        $newUser->email    = $request->email;
+        $newUser->password = bcrypt('12345678');
+        $newUser->save();
+        $newUser->roles()->sync($request->roles);
+        return redirect()->route('users.index')->with('info', 'Creado con exito');
+    } //store
 
-    }
+    public function destroy(User $user)
+    {
+        //$user->delete();
+        $user->active = 0;
+        $user->save(); 
+        return redirect()->route('roles.index')->with('info', 'Se ha deshabilidado el acceso el User');
+    }//destroy
 
-    public function destroy(User $user){
-
-    }
+    public function show()
+    {
+    }//show
 
 
 
