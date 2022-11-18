@@ -5,10 +5,10 @@
 @section('content_header')
     @can('roles.create')
         <a href="{{ route('roles.create') }}" class="btn btn-info float-right">
-            <i class="fas fa-user-shield mr-2"></i>Agregar Role
+            <i class="fas fa-user-shield mr-2"></i>{{__('roles_new')}}
         </a>
     @endcan
-    <h2>Lista de Roles</h2>
+    <h2>{{__('roles_header')}}</h2>
 @stop
 
 @section('content')
@@ -26,9 +26,9 @@
                     <thead class="">
                         <tr>
                             <th>ID</th>
-                            <th>Role Name</th>
-                            <th>Role Description</th>
-                            <th colspan="2">Actions</th>
+                            <th>Role {{__('name')}}</th>
+                            <th>Role {{__('description')}}</th>
+                            <th colspan="2">{{__('actions')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,18 +40,21 @@
                                 <td>
                                     @can('roles.edit')
                                         <a href="{{ route('roles.edit', $role) }}" class="btn btn-sm btn-info">
-                                            <i class="fa fa-pen mr-2"></i>Editar</a>
+                                            <i class="fa fa-pen mr-2"></i>{{__('edit')}}
+                                        </a>
                                     @endcan
                                 </td>
                                 <td>
+                                    {{--    --}}
                                     @can('roles.destroy')
                                         {!! Form::open([
                                             'method' => 'DELETE',
                                             'route' => ['roles.destroy', $role],
                                             'onsubmit' => 'return confirm("Are you sure ?")',
+                                            //'onsubmit' => 'return confirm(__("Are you sure you want to run this action?"))',
                                         ]) !!}
                                         <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="fa fa-trash mr-2"></i>Elminar
+                                            <i class="fa fa-trash mr-2"></i>{{__('delete')}}
                                         </button>
                                         {!! Form::close() !!}
                                     @endcan

@@ -14,6 +14,12 @@
                 </div>
             @endif
 
+            @if (session('error-login'))
+                <div class="alert alert-warning mb-3 rounded-0" role="alert">
+                    {{ session('error-login') }}
+                </div>
+            @endif
+
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-3">
