@@ -801,5 +801,13 @@
     "name": "Name",
     "password": "Password",
     "description" : "Description",
-    "email" : "Email" 
+    "email" : "Email",
+    "roles_title": "Roles",
+    "roles_title_create": "Role:create",
+    "roles_title_edit": "Role:edit",
+    "roles_header": "Roles Listing",
+    "roles_header_create": "Create Role",
+    "roles_header_edit": "Edit Role",
+    "roles_new": "New Role",
+    "permissions_header": "Permissions Listing" 
 }
