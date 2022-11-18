@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'User:create')
+@section('title', __('users_title_create'))
 
 @section('content_header')
-    <h2>Crear Usuario</h2>
+    <h2>{{__('users_header_create')}}</h2>
 @stop
 
 @section('content')

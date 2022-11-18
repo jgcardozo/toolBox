@@ -1,7 +1,7 @@
 <div class="row">
     <div class="form-group col-sm-6">
         <div class="mb-2">
-            {!! Form::label('name', 'Nombre') !!}
+            {!! Form::label('name', __('name')) !!}
             {!! Form::text('name', null, ['class' => 'form-control']) !!}
             @error('name')
                 <small class="text-danger">
@@ -10,7 +10,7 @@
             @enderror
         </div>
         <div class="mb-2">
-            {!! Form::label('email', 'Email') !!}
+            {!! Form::label('email', __('email')) !!}
             {!! Form::text('email', null, ['class' => 'form-control']) !!}
             @error('email')
                 <small class="text-danger">
@@ -22,7 +22,7 @@
 
 
     <div class="col-sm-6">
-        <label>Roles:</label>
+        <label>Role(s):</label>
 
         @foreach ($roles as $role)
             <div>
@@ -39,10 +39,10 @@
 
 <div class="row">
     <div class="col-sm-12 text-center">
-        <a href="{{ route('users.index') }}" class="btn btn-secondary"><i class="fa fa-backward mr-2"></i>Cancelar</a>
+        <a href="{{ route('users.index') }}" class="btn btn-secondary"><i class="fa fa-backward mr-2"></i>{{__('cancel')}}</a>
 
         <button type="submit" class="btn btn-info">
-            <i class="fa fa-sd-card mr-2"></i>Guardar
+            <i class="fa fa-sd-card mr-2"></i>{{__('save')}}
         </button>
     </div>
 </div>

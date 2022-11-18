@@ -16,4 +16,15 @@ return [
     'important'                     => 'Importante',
     'warning'                       => 'Advertencia',
     'information'                   => 'Información',
+    'dashboard' => 'Tablero',
+    'users'=>'Usuarios',
+    'roles'=>'Roles',
+    'permissions' => 'Permisos',
+    'products' => 'Productos',
+    'inventory' => 'Inventario',
+    'customers' => 'Clientes',
+    'leads' => 'Prospecto',
+    'quotes' => 'Cotizaciones',
+    'processes' => 'Procesos',
+    'reports' => 'Reportes'
 ];

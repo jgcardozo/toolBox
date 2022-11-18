@@ -16,4 +16,15 @@ return [
     'important'                     => 'Important',
     'warning'                       => 'Warning',
     'information'                   => 'Information',
+    'dashboard' => 'Dashboard',
+    'users' => 'Users',
+    'roles' => 'Roles',
+    'permissions' => 'Permissions',
+    'products' => 'Products',
+    'inventory' => 'Inventory',
+    'customers' => 'Customers',
+    'leads' => 'Leads',
+    'quotes' => 'Quotes',
+    'processes' => 'Processes',
+    'reports'=>'Reports'
 ];

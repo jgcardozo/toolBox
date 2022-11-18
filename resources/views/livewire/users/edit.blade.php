@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Usuarios:edit')
+@section('title', __('users_title_edit'))
 
 @section('content_header')
-    <h1>Editar Usuario</h1>
+    <h2>{{__('users_header_edit')}}</h2>
 @stop
 
 @section('content')

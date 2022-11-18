@@ -14,6 +14,17 @@ https://github.com/svenluijten/artisan-view
 https://spatie.be/docs/laravel-permission/v5/installation-laravel
 
 
+# laravel lang
+https://www.youtube.com/watch?v=vjGLUG2JTrs
+https://github.com/Laraveles/spanish/tree/master/resources/lang
+https://github.com/Laravel-Lang/lang
+
+
+
+
+
+
+###############################################################
 
 # otros de interes
 https://github.com/jgcardozo/intraLaravel/
@@ -23,3 +34,6 @@ https://www.kommo.com/es/
 # generador de crud - livewire
 https://www.youtube.com/watch?v=4YJStyb9kJA
 composer require flightsadmin/livewire-crud
+
+# vue3 + laravel consuming api
+https://www.youtube.com/watch?v=quj9LfEHkuM&list=PLB5SYDBi8M3GZQT-Edio2jt4T89yZV_nW

@@ -310,31 +310,31 @@ return [
         */
 
         [
-            'text' => 'Dashboard',
+            'text' => 'dashboard',
             'route'  => 'dashboard',
             'icon' => 'fas fa-fw fa-home',
             'label' => 'Inicio',
             'label_color'=>'success'
         ],
         [
-            'text' => 'Usuarios',
+            'text' => 'users',
             'icon' => 'fas fa-fw fa-user-shield',
             'can'  => 'users.settings',
             'submenu' => [
                 [
-                    'text'  => 'Usuarios',
+                    'text'  => 'users',
                     'route' => 'users.index',
                     'icon'  => 'fas fa-fw fa-user',
                     'can'   => 'users.index',
                 ],
                 [
-                    'text'  => 'Roles',
+                    'text'  => 'roles',
                     'route' => 'roles.index',
                     'icon'  => 'fas fa-fw fa-user-shield',
                     'can'   => 'roles.index',
                 ],
                 [
-                    'text'  => 'Permisos',
+                    'text'  => 'permissions',
                     'url'   => '#',
                     'icon'  => 'fas fa-fw fa-lock',
                     'can'   => 'permissions.index',
@@ -342,43 +342,48 @@ return [
             ],
         ],
         [
-            'text'    => 'Clientes',
+            'text'    => 'customers',
             'icon' => 'fas fa-fw fa-users',
             'submenu' => [
                 [
-                    'text' => 'Prospectos',
+                    'text' => 'leads',
                     'url'  => '#',
                     'icon' => 'fas fa-fw fa-user-tag',
                 ],
                 [
-                    'text' => 'Clientes',
+                    'text' => 'customers',
                     'url'  => '#',
                     'icon' => 'fas fa-fw fa-user-tie',
                 ],
             ],
         ],
         [
-            'text'       => 'Products',
+            'text'       => 'products',
             'icon'        => 'fas fa-fw fa-cart-arrow-down',
             //'icon_color' => 'red',
             'url'        => '#',
             'submenu' => [
                 [
-                    'text' => 'Inventario',
+                    'text' => 'inventory',
                     'url'  => '#',
-                    //'icon' => 'fas fa-fw fa-trunk-ramp-box',
-                ],
-                [
-                    'text' => 'Procesos',
-                    'url'  => '#',
-                    //'icon' => 'fas fa-fw fa-user-tie',
+                    //'icon' => 'fas fa-fw fa-trunk',
                 ],
             ],
         ],
         [
-            'text' => 'Cotizaciones',
+            'text' => 'quotes',
             'url'  => '#',
-            //'icon' => 'fas fa-fw fa-money-check-dollar',
+            'icon' => 'fas fa-fw fa-file',
+        ],
+        [
+            'text' => 'reports',
+            'url'  => '#',
+            //'icon' => 'fa-solid fa-file-chart-column',
+        ],
+        [
+            'text' => 'processes',
+            'url'  => '#',
+            //'icon' => 'fas fa-fw fa-user-tie',
         ],
        
   

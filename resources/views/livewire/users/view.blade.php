@@ -10,10 +10,10 @@
                         <thead class="">
                             <tr>
                                 <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Email</th>
+                                <th>{{__('name')}}</th>
+                                <th>{{__('email')}}</th>
                                 <th>Role(s)</th>
-                                <th>Actions</th>
+                                <th colspan="2">{{__('actions')}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -32,7 +32,7 @@
                                     <td>
                                         @can('users.edit')
                                             <a class="btn btn-sm btn-info" href="{{ route('users.edit', $user) }}">
-                                                <i class="fa fa-pen mr-2"></i>Editar</a>
+                                                <i class="fa fa-pen mr-2"></i>{{__('edit')}}</a>
                                             </a>
                                         @endcan
                                     </td>
@@ -44,7 +44,7 @@
                                                 'onsubmit' => 'return confirm("Are you sure ?")',
                                             ]) !!}
                                             <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="fa fa-trash mr-2"></i>Elminar
+                                                <i class="fa fa-trash mr-2"></i>{{__('delete')}}
                                             </button>
                                             {!! Form::close() !!}
                                         @endcan
