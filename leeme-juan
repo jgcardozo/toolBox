@@ -20,7 +20,15 @@ https://github.com/Laraveles/spanish/tree/master/resources/lang
 https://github.com/Laravel-Lang/lang
 
 
+# custom error pages
+https://laravel.com/docs/8.x/errors 
 
+# users table field active, avoid to start session
+https://www.youtube.com/watch?v=MY6BcDW8zwo
+
+
+# por hacer
+mer inventory
 
 
 
@@ -30,6 +38,8 @@ https://github.com/Laravel-Lang/lang
 https://github.com/jgcardozo/intraLaravel/
 https://www.kommo.com/es/
 
+# api passport todo importante ver
+https://www.youtube.com/watch?v=oQrUe1jQ6xQ
 
 # generador de crud - livewire
 https://www.youtube.com/watch?v=4YJStyb9kJA

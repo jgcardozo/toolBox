@@ -809,5 +809,6 @@
     "roles_header_create": "Crear Role",
     "roles_header_edit": "Editar Role",
     "roles_new": "Nuevo Role",
-    "permissions_header": "Lista de Permisos"
+    "permissions_header": "Lista de Permisos",
+    "login_suspended": "Su Cuenta esta suspendida, Por favor contacte al Administrador !"
 }
