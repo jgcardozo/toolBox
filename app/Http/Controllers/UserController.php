@@ -61,9 +61,10 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //$user->delete();
-        $user->active = 0;
+        $que = $user->active ?  'deshabilidado':'habilidado';
+        $user->active = !$user->active;
         $user->save(); 
-        return redirect()->route('roles.index')->with('info', 'Se ha deshabilidado el acceso el User');
+        return redirect()->route('users.index')->with('info', "Se ha {$que} el acceso a {$user->name} - {$user->email}");
     }//destroy
 
     public function show()

@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Dream</b>CRM',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -151,7 +151,7 @@ return [
     'layout_topnav' => null,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => true,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
 
@@ -314,11 +314,11 @@ return [
             'route'  => 'dashboard',
             'icon' => 'fas fa-fw fa-home',
             'label' => 'Inicio',
-            'label_color'=>'success'
+            'label_color' => 'success'
         ],
         [
             'text' => 'users',
-            'icon' => 'fas fa-fw fa-user-shield',
+            'icon' => 'fas fa-fw fa-user-tie',
             'can'  => 'users.settings',
             'submenu' => [
                 [
@@ -341,22 +341,13 @@ return [
                 ],
             ],
         ],
+
         [
-            'text'    => 'customers',
+            'text' => 'customers',
+            'route'  => 'clients',
             'icon' => 'fas fa-fw fa-users',
-            'submenu' => [
-                [
-                    'text' => 'leads',
-                    'url'  => '#',
-                    'icon' => 'fas fa-fw fa-user-tag',
-                ],
-                [
-                    'text' => 'customers',
-                    'url'  => '#',
-                    'icon' => 'fas fa-fw fa-user-tie',
-                ],
-            ],
         ],
+
         [
             'text'       => 'products',
             'icon'        => 'fas fa-fw fa-cart-arrow-down',
@@ -364,29 +355,58 @@ return [
             'url'        => '#',
             'submenu' => [
                 [
+                    'text' => 'products',
+                    'url'  => '#',
+                    'icon' => 'fas fa-solid fa-basket-shopping',
+                ],
+                [
                     'text' => 'inventory',
                     'url'  => '#',
-                    //'icon' => 'fas fa-fw fa-trunk',
+                    'icon' => 'fas fa-warehouse',
+                ],
+                [
+                    'text' => 'providers',
+                    'url'  => '#',
+                    'icon' => 'fas fa-store-alt',
                 ],
             ],
         ],
         [
             'text' => 'quotes',
             'url'  => '#',
-            'icon' => 'fas fa-fw fa-file',
+            'icon' => 'fas fa-money-check-alt',
         ],
         [
             'text' => 'reports',
             'url'  => '#',
-            //'icon' => 'fa-solid fa-file-chart-column',
+            'icon' => 'fas fa-clipboard-check',
         ],
+
+
+
         [
-            'text' => 'processes',
-            'url'  => '#',
-            //'icon' => 'fas fa-fw fa-user-tie',
+            'text'    => 'libraries',
+            'icon' => 'fas fa-fw fa-users',
+            'submenu' => [
+                [
+                    'text' => 'cities',
+                    'url'  => '#',
+                    'icon' => 'fas fa-city',
+                ],
+                [
+                    'text' => 'delivery_routes',
+                    'url'  => '#',
+                    'icon' => 'fas fa-route',
+                ],
+                [
+                    'text' => 'processes',
+                    'url'  => '#',
+                    'icon' => 'fas fa-gear',
+                ],
+            ]
         ],
-       
-  
+
+
     ],
 
     /*

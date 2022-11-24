@@ -3,11 +3,13 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\City;
 use App\Models\User;
+use App\Models\IdentificationType;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-class RoleSeeder extends Seeder
+class GeneralSeeder extends Seeder
 {
    
     public function run()
@@ -29,6 +31,11 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'roles.create', 'description'=>'Roles crear' ])->assignRole($roleAdmin);
         Permission::create(['name' => 'roles.edit', 'description'=>'Roles editar' ])->assignRole($roleAdmin);
         Permission::create(['name' => 'roles.destroy', 'description' => 'Roles eliminar'])->assignRole($roleAdmin);
+
+        Permission::create(['name' => 'clients.index', 'description' => 'Clientes listado'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'clients.create', 'description' => 'Clientes crear'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'clients.edit', 'description' => 'Clientes editar'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'clients.destroy', 'description' => 'Clientes eliminar'])->assignRole($roleAdmin);
 
         /*
         Permission::create(['name' => 'permissions.index', 'description'=>'des' ])->assignRole($roleAdmin);
@@ -53,8 +60,30 @@ class RoleSeeder extends Seeder
             //'active'         => 1,
         ])->assignRole($roleAsesor, $roleValidador);
 
-    }//run
+        City::create(['description' => 'Cali']);
+        City::create(['description' => 'Yumbo']);
+        City::create(['description' => 'La Cumbre']);
+        City::create(['description' => 'Mulalo']);
+        City::create(['description' => 'Vijes']);
+        City::create(['description' => 'Jamundi']);
+        City::create(['description' => 'Palmira']);
+        City::create(['description' => 'Candelaria']);
+        City::create(['description' => 'Rozo']);
+        City::create(['description' => 'Dagua']);
+        City::create(['description' => 'El Cerrito']);
+        City::create(['description' => 'Florida']);
+        City::create(['description' => 'Pradera']);
 
+        IdentificationType::create(['description' => 'Cedula Ciudadania']);
+        IdentificationType::create(['description' => 'Nit']);
+        IdentificationType::create(['description' => 'Pasaporte']);
+        IdentificationType::create(['description' => 'Cedula Extranjeria']);
+        IdentificationType::create(['description' => 'Contraseña']);
+        IdentificationType::create(['description' => 'Tarjeta de Identidad']);
+        IdentificationType::create(['description' => 'Registro Civil']);
+        
+        
+    }//run
 
 
 

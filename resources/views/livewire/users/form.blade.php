@@ -18,12 +18,21 @@
                 </small>
             @enderror
         </div>
+   {{--      
+    campo password
+    <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" name="status" id="status" @if ($user->active)
+                checked
+            @endif>
+          
+            <label class="custom-control-label" for="status" checked>Acceso Activado ?</label> 
+        </div> --}}
+
     </div>
 
 
     <div class="col-sm-6">
         <label>Role(s):</label>
-
         @foreach ($roles as $role)
             <div>
                 <label>
@@ -32,17 +41,17 @@
                 </label>
             </div>
         @endforeach
-
     </div>
 
 </div>
 
 <div class="row">
     <div class="col-sm-12 text-center">
-        <a href="{{ route('users.index') }}" class="btn btn-secondary"><i class="fa fa-backward mr-2"></i>{{__('cancel')}}</a>
+        <a href="{{ route('users.index') }}" class="btn btn-secondary"><i
+                class="fa fa-backward mr-2"></i>{{ __('cancel') }}</a>
 
         <button type="submit" class="btn btn-info">
-            <i class="fa fa-sd-card mr-2"></i>{{__('save')}}
+            <i class="fa fa-sd-card mr-2"></i>{{ __('save') }}
         </button>
     </div>
 </div>

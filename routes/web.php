@@ -18,6 +18,10 @@ Route::get('/dashboard', function () {
 Route::resource('users', UserController::class)->names('users');
 Route::resource('roles', RoleController::class)->names('roles');
 
+
+
+Route::view('clients', 'livewire.clients.index')->name('clients'); //->middleware('auth');
+
 /*
 Route::get('/articles', 'App\Http\Controllers\ArticlesController@index');
 Route::post('/articles', 'App\Http\Controllers\ArticlesController@store');

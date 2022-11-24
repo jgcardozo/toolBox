@@ -10,10 +10,10 @@
                         <thead class="">
                             <tr>
                                 <th>ID</th>
-                                <th>{{__('name')}}</th>
-                                <th>{{__('email')}}</th>
+                                <th>{{ __('name') }}</th>
+                                <th>{{ __('email') }}</th>
                                 <th>Role(s)</th>
-                                <th colspan="2">{{__('actions')}}</th>
+                                <th colspan="2">{{ __('actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -32,7 +32,7 @@
                                     <td>
                                         @can('users.edit')
                                             <a class="btn btn-sm btn-info" href="{{ route('users.edit', $user) }}">
-                                                <i class="fa fa-pen mr-2"></i>{{__('edit')}}</a>
+                                                <i class="fa fa-pen mr-1"></i>{{ __('edit') }}</a>
                                             </a>
                                         @endcan
                                     </td>
@@ -43,9 +43,17 @@
                                                 'route' => ['users.destroy', $user],
                                                 'onsubmit' => 'return confirm("Are you sure ?")',
                                             ]) !!}
-                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="fa fa-trash mr-2"></i>{{__('delete')}}
-                                            </button>
+
+                                            @if ($user->active)
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    <i class="fa fa-ban mr-1"></i></i>Desactivar
+                                                </button>
+                                            @else
+                                                <button type="submit" class="btn btn-sm btn-primary">
+                                                    <i class="fa fa-lock-open mr-1"></i>Activar
+                                                </button>
+                                            @endif
+                                          
                                             {!! Form::close() !!}
                                         @endcan
                                     </td>
