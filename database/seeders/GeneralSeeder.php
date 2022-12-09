@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\City;
 use App\Models\User;
+use App\Models\Brand;
+use Illuminate\Database\Seeder;
 use App\Models\IdentificationType;
+use App\Models\ProductType;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -81,8 +83,40 @@ class GeneralSeeder extends Seeder
         IdentificationType::create(['description' => 'Contraseña']);
         IdentificationType::create(['description' => 'Tarjeta de Identidad']);
         IdentificationType::create(['description' => 'Registro Civil']);
+
+        ProductType::create(['description' => 'SmartPhone']);
+        ProductType::create(['description' => 'SmartWatch']);
+        ProductType::create(['description' => 'Laptop']);
+        ProductType::create(['description' => 'Consola']);
+        ProductType::create(['description' => 'Estereo']);
+        ProductType::create(['description' => 'Tablet']);
+        ProductType::create(['description' => 'Accesorio']);
+        ProductType::create(['description' => 'SmartTv']);
+ 
+
+        Brand::create(['description' => 'Apple']);
+        Brand::create(['description' => 'Motorola']);
+        Brand::create(['description' => 'Samsung']);
+        Brand::create(['description' => 'Huawei']);
+        Brand::create(['description' => 'Xiaomi']);
+        Brand::create(['description' => 'Krip']);
+        Brand::create(['description' => 'Vivo']);
+        Brand::create(['description' => 'Sony']);
+        Brand::create(['description' => 'Xbox']);
+        Brand::create(['description' => 'Nintendo']);
+
         
-        
+        /*
+        $table->string('reference')->nullable();
+        $table->string('reference2')->nullable();
+        $table->string('description');
+        $table->double('price', 15, 2);
+        $table->string('photo1')->nullable();
+        $table->string('photo2')->nullable();
+        $table->string('photo3')->nullable(); //cambiar a morph tambien la tabla clients 
+        $table->foreignId('producttype_id')->references('id')->on('product_types')->onDelete('cascade');
+        $table->foreignId('brand_id')->references('id')->on('brands')->onDelete('cascade');
+        */
     }//run
 
 

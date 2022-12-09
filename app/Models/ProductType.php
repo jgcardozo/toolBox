@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class City extends Model
+class ProductType extends Model
 {
     use HasFactory;
 
-    public function clients(){
-        return $this->hasMany('App\Models\Client');
+
+    public function products()
+    {
+        return $this->hasMany('App\Models\Product');
     }
-
-
+ 
 
 }//class

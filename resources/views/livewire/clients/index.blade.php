@@ -11,11 +11,6 @@
 
 @section('content')
     <div class="container-fluid">
-        @if (session('info'))
-            <div class="alert alert-info">
-                <strong>{{ session('info') }}</strong>
-            </div>
-        @endif
         @livewire('clients')
     </div>
 @stop

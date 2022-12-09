@@ -4,7 +4,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="updateModalLabel">Update Client</h5>
+                <h5 class="modal-title" id="updateModalLabel">Cliente Editar</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span wire:click.prevent="cancel()" aria-hidden="true">×</span>
                 </button>
@@ -102,7 +102,7 @@
                 <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal">
                     <i class="fa fa-backward mr-2"></i>{{ __('cancel') }}
                 </button>
-                <button type="button" wire:click.prevent="update()" class="btn btn-primary" data-dismiss="modal">
+                <button type="button" wire:click.prevent="update()" class="btn btn-info" data-dismiss="modal">
                     <i class="fa fa-sd-card mr-2"></i>{{ __('save') }}
                 </button>
             </div>

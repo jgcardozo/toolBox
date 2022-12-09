@@ -2,85 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\Image;
 use App\Models\Client;
-use App\Http\Requests\StoreClientRequest;
-use App\Http\Requests\UpdateClientRequest;
+use Illuminate\Http\Request;
+use App\Models\IdentificationType;
+use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+
+    public function formImage(Client $client){
+        return view('livewire.clients.form', compact('client'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function storeImage(Request $request)
+    {     
+        foreach($request->file('file') as $key => $img) {
+            $imgUrl = $img->store('public/clients');
+            $imgUrl = Storage::url($imgUrl);
+            $imgSave =  new Image();
+            $imgSave->url = $imgUrl;
+            $imgSave->imageable_id = $request->clientId;
+            $imgSave->imageable_type = "App\Models\Client";
+            $imgSave->save();
+        }
+        return response()->json([ 'message' => "Imagenes subidas con exito"]);	
+    } //storeImage
+
+    public function show($id)
     {
-        //
+        $client = Client::where('id',$id)->first();
+        $cities = City::all();
+        $ptypes = IdentificationType::all();
+        //dd($client);
+        return view('livewire.clients.show', compact('client', 'cities', 'ptypes'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreClientRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreClientRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Client $client)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Client $client)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateClientRequest  $request
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateClientRequest $request, Client $client)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Client $client)
-    {
-        //
-    }
-}
+  
+} //class

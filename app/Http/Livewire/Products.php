@@ -2,41 +2,39 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\City;
-use App\Models\Client;
+
+use App\Models\Brand;
+use App\Models\Product;
+use App\Models\ProductType;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\IdentificationType;
 
 
-class Clients extends Component
+class Products extends Component
 {
 	use WithPagination;
 
 	protected $paginationTheme = 'bootstrap';
-	public $selected_id, $keyWord, $id_nro, $id_type, $client_type, $name, $email, $phone, $address, $city_id;
+	public $selected_id, $keyWord, $reference, $reference2, $description, $price, $producttype_id, $brand_id;
 	public $updateMode = false;
-	public $cities, $identificationTypes;
+	public $brands, $ptypes, $imagen;
 	public $sort = 'created_at';
 	public $direction = 'desc';
 
-
 	public function mount()
 	{
-		$this->cities = City::orderBy('description')->get();
-		$this->itypes = IdentificationType::all();
+		$this->brands = Brand::orderBy('description')->get();
+		$this->ptypes = ProductType::all();
 	}
 
 	public function render()
 	{
 		$keyWord = '%' . $this->keyWord . '%';
-		$clients = Client::with('images')
-				->orWhere('id_nro', 'LIKE', $keyWord)
-				->orWhere('name', 'LIKE', $keyWord)
-				->orWhere('email', 'LIKE', $keyWord)
-				->orderBy($this->sort, $this->direction)
-				->paginate(20);	
-		return view('livewire.clients.view', compact('clients'));  
+		$products = Product::with('images')
+			->orWhere('description', 'LIKE', $keyWord) //==nombre modelo
+			->orderBy($this->sort, $this->direction)
+			->paginate(20);
+		return view('livewire.products.view', compact('products'));
 	}
 
 	public function cancel()
@@ -47,46 +45,35 @@ class Clients extends Component
 
 	private function resetInput()
 	{
-		$this->id_nro = null;
-		$this->id_type = null;
-		$this->client_type = null;
-		$this->name = null;
-		$this->email = null;
-		$this->phone = null;
-		$this->address = null;
-		$this->city_id = null;
-		$this->imagenes = null;
+		$this->reference  = null;
+		$this->reference2 = null;
+		$this->description = null;
+		$this->price = null;
+		$this->imagen = null;
+		$this->producttype_id = null;
+		$this->brand_id = null;
 	}
 
 	public function store()
 	{
-		$this->validate([
-			'id_nro' => 'required|unique:clients',
-			'id_type' => 'required|not_in:0',
-			'name' => 'required',
-			'email' => 'required|email|unique:clients',
-			'phone' => 'required',
-			'city_id' => 'required|not_in:0',
+		$validated = $this->validate([
+			'description' => 'required|unique:products',
+			'price' => 'required',
+			'producttype_id' => 'required|not_in:0',
+			'brand_id' => 'required|not_in:0',
 		]);
-
-		Client::create([
-			'id_nro' => $this->id_nro,
-			'id_type' => $this->id_type,
-			'name' => $this->name,
-			'email' => $this->email,
-			'phone' => $this->phone,
-			'address' => $this->address,
-			'city_id' => $this->city_id
-		]);
+		Product::create($validated);
 
 		$this->resetInput();
-		$this->emit('closeModal');
-		session()->flash('message', 'Client Successfully created.');
+		$this->emit('close');
+		session()->flash('message', 'Product Successfully created.');
 	}
 
 	public function edit($id)
 	{
-		$record = Client::findOrFail($id);
+		$record = Product::findOrFail($id);
+		//dd($record);
+
 		$this->selected_id = $id;
 		$this->id_nro = $record->id_nro;
 		$this->id_type = $record->id_type;
@@ -96,9 +83,9 @@ class Clients extends Component
 		$this->phone = $record->phone;
 		$this->address = $record->address;
 		$this->city_id = $record->city_id;
+
 		$this->updateMode = true;
 	}
-
 
 	public function update()
 	{
@@ -111,7 +98,7 @@ class Clients extends Component
 		]);
 
 		if ($this->selected_id) {
-			$record = Client::find($this->selected_id);
+			$record = Product::find($this->selected_id);
 			$record->update([
 				'id_nro' => $this->id_nro,
 				'id_type' => $this->id_type,
@@ -124,14 +111,14 @@ class Clients extends Component
 
 			$this->resetInput();
 			$this->updateMode = false;
-			session()->flash('message', 'Client Successfully updated.');
+			session()->flash('message', 'Product Successfully updated.');
 		}
 	}
 
 	public function destroy($id)
 	{
 		if ($id) {
-			$record = Client::where('id', $id);
+			$record = Product::where('id', $id);
 			$record->delete();
 		}
 	}

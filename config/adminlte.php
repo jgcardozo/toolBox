@@ -349,15 +349,19 @@ return [
         ],
 
         [
-            'text'       => 'products',
-            'icon'        => 'fas fa-fw fa-cart-arrow-down',
+            'text'       => 'productos',
+            'icon'        => 'fas fa-warehouse',
             //'icon_color' => 'red',
-            'url'        => '#',
             'submenu' => [
                 [
                     'text' => 'products',
+                    'route'  => 'products',
+                    'icon' => 'fas fa-fw fa-cart-arrow-down',
+                ],
+                [
+                    'text' => 'payment_plan',
                     'url'  => '#',
-                    'icon' => 'fas fa-solid fa-basket-shopping',
+                    'icon' => 'fas fa-file-word',
                 ],
                 [
                     'text' => 'inventory',
