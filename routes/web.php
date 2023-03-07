@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\DomainController;
+use App\Http\Controllers\LinkController;
 
 
 Route::get('/', function () {
@@ -20,7 +20,12 @@ Route::get('/dashboard', function () {
 Route::resource('users', UserController::class)->names('users');
 Route::resource('roles', RoleController::class)->names('roles');
 
+Route::resource('domains', DomainController::class)->names('domains');
+Route::resource('links', LinkController::class)->names('links');
+
 // falta rolesNpermissions and lang
+
+/*
 Route::view('clients', 'livewire.clients.index')->name('clients');
 Route::get('clients/{client}', [ClientController::class, 'formImage'])->name('clients.formImage');
 Route::post('clients/storeImage', [ClientController::class, 'storeImage'])->name('clients.storeImage');
@@ -32,7 +37,7 @@ Route::post('products/storeImage', [ProductController::class, 'storeImage'])->na
 Route::get('products/{id}/show', [ProductController::class, 'show'])->name('products.show');
 
 
-/*
+
 Route::get('/articles', 'App\Http\Controllers\ArticlesController@index');
 Route::post('/articles', 'App\Http\Controllers\ArticlesController@store');
 Route::get('/articles/create', 'App\Http\Controllers\ArticlesController@create');

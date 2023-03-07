@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuotationsTable extends Migration
+class CreateDomainsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class CreateQuotationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('quotations', function (Blueprint $table) {
+        Schema::create('domains', function (Blueprint $table) {
             $table->id();
+            $table->string('name',50);
+            $table->string('ftp_url');
+            $table->string('ftp_user');
+            $table->string('ftp_password');
+            $table->string('type', 20);
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ class CreateQuotationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quotations');
+        Schema::dropIfExists('domains');
     }
 }

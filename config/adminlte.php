@@ -313,7 +313,7 @@ return [
             'text' => 'dashboard',
             'route'  => 'dashboard',
             'icon' => 'fas fa-fw fa-home',
-            'label' => 'Inicio',
+            'label' => 'Home',
             'label_color' => 'success'
         ],
         [
@@ -342,12 +342,25 @@ return [
             ],
         ],
 
+            
         [
-            'text' => 'customers',
-            'route'  => 'clients',
-            'icon' => 'fas fa-fw fa-users',
+            'text' => 'Domains',
+            'route'  => 'domains.index',
+            'icon' => 'fas fa-fw fa-globe',
         ],
-
+        [
+            'text' => 'Links',
+            'route'  => 'links.index',
+            'icon' => 'fas fa-fw fa-link',
+        ],
+        [
+            'text' => 'Coupons',
+            'url'  => '#',
+            'icon' => 'fas fa-fw fa-layer-group',
+            'label' => 'Comming soon',
+            'label_color' => 'info'
+        ] 
+/*
         [
             'text'       => 'productos',
             'icon'        => 'fas fa-warehouse',
@@ -409,7 +422,7 @@ return [
                 ],
             ]
         ],
-
+        */
 
     ],
 

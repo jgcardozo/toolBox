@@ -2,12 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\City;
+use App\Models\Domain;
 use App\Models\User;
-use App\Models\Brand;
 use Illuminate\Database\Seeder;
-use App\Models\IdentificationType;
-use App\Models\ProductType;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -17,10 +14,10 @@ class GeneralSeeder extends Seeder
     public function run()
     {
 
-        $roleAdmin  = Role::create(['name' => 'Admin' ,'description'=>'Admin System has access to all the menus and options' ]);
-        $roleAsesor = Role::create(['name' => 'Asesor Interno' ,'description'=>'Puede hacer cotizaciones' ]);
-        $roleAsesorE = Role::create(['name' => 'Asesor Externo', 'description' => 'Se le pagan comisiones, % sobre la venta']);
-        $roleValidador = Role::create(['name' => 'Validador' ,'description'=>'Valida documentación de credito' ]);
+        $roleAdmin   = Role::create(['name' => 'Admin' ,'description'=>'Admin System has access to all the menus and options' ]);
+        $devMember   = Role::create(['name' => 'DevMember' ,'description'=>'Can manage Roles, users, and Domains' ]);
+        $salesMember = Role::create(['name' => 'SalesMember', 'description' => 'Can create Links']);
+        $customServiceMember = Role::create(['name' => 'CustomerServiceMember' ,'description'=>'Just can list/see Shorten Links' ]);
 
         //Permission::create(['name' => 'dashboard'])->syncRoles([$roleAdmin, $roleAsesor, $roleValidador]);
         Permission::create(['name' => 'users.settings', 'description'=>'Usuarios menu' ])->assignRole($roleAdmin);
@@ -34,34 +31,64 @@ class GeneralSeeder extends Seeder
         Permission::create(['name' => 'roles.edit', 'description'=>'Roles editar' ])->assignRole($roleAdmin);
         Permission::create(['name' => 'roles.destroy', 'description' => 'Roles eliminar'])->assignRole($roleAdmin);
 
-        Permission::create(['name' => 'clients.index', 'description' => 'Clientes listado'])->assignRole($roleAdmin);
-        Permission::create(['name' => 'clients.create', 'description' => 'Clientes crear'])->assignRole($roleAdmin);
-        Permission::create(['name' => 'clients.edit', 'description' => 'Clientes editar'])->assignRole($roleAdmin);
-        Permission::create(['name' => 'clients.destroy', 'description' => 'Clientes eliminar'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'permissions.index', 'description'=>'list permissions' ])->assignRole($roleAdmin);
+        Permission::create(['name' => 'permissions.create', 'description'=>'create permissions' ])->assignRole($roleAdmin);
+        Permission::create(['name' => 'permissions.edit', 'description'=> 'edit permissions' ])->assignRole($roleAdmin);
+        Permission::create(['name' => 'permissions.destroy', 'description'=> 'delete permissions' ])->assignRole($roleAdmin);
 
-        /*
-        Permission::create(['name' => 'permissions.index', 'description'=>'des' ])->assignRole($roleAdmin);
-        Permission::create(['name' => 'permissions.create', 'description'=>'des' ])->assignRole($roleAdmin);
-        Permission::create(['name' => 'permissions.edit', 'description'=>'des' ])->assignRole($roleAdmin);
-        Permission::create(['name' => 'permissions.destroy', 'description'=>'des' ])->assignRole($roleAdmin);
-        */
+        Permission::create(['name' => 'domains.index', 'description' => 'List/see Domains'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'domains.create', 'description' => 'Create Domains'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'domains.edit', 'description' => 'Edit Domains'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'domains.destroy', 'description' => 'Delete Domains'])->assignRole($roleAdmin);
 
-        Permission::create(['name' => 'products.index', 'description'=>'Productos listado' ])->assignRole($roleAdmin);
+        Permission::create(['name' => 'links.index', 'description' => 'List/see Links'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'links.create', 'description' => 'Create Links'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'links.edit', 'description' => 'Edit Links'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'links.destroy', 'description' => 'Delete Links'])->assignRole($roleAdmin);
 
 
         $userAdmin = User::create([
-            'name'           => 'AdminCrm',
-            'email'          => 'admin@gmail.com',
+            'name'           => 'Admin',
+            'email'          => 'juan.cardozo@ideaware.co',
             'password'       => bcrypt('admin'),
             //'active'         => 1,
         ])->assignRole($roleAdmin);
-        $user1 = User::create([
-            'name'           => 'Lina Cardozo',
-            'email'          => 'lina@gmail.com',
-            'password'       => bcrypt('12345678'),
-            //'active'         => 1,
-        ])->assignRole($roleAsesor, $roleValidador);
 
+        $erick = User::create([
+            'name'           => 'Erick Acevedo',
+            'email'          => 'erick.acevedo@ideaware.co',
+            'password'       => bcrypt('Warzone'),
+            //'active'         => 1,
+        ])->assignRole($roleAdmin);
+        //])->assignRole($roleAsesor, $roleValidador);
+
+
+        Domain::create([
+            'name'         => 'test.askmethod.com',
+            'ftp_url'      => 'waws-prod-dm1-165.ftp.azurewebsites.windows.net/site/wwwroot',
+            'ftp_user'     => 'testaskmethod\$testaskmethod',
+            'ftp_password' => 'nmRRdd5D8aBujF06dQeMBqRsFX0mgWZwRvf1lRm9ce9xj3nYF3Ym2amRb1rd',
+            'type' => 'Nginx'     
+        ]);
+
+        Domain::create([
+            'name' => 'bucket.io',
+            'ftp_url' => 'waws-prod-dm1-165.ftp.azurewebsites.windows.net/site/wwwroot',
+            'ftp_user' => 'bucketio\$bucketio',
+            'ftp_password' => 'Q50ZgLMlyThd8wAR09Qr8RoWTQfNkPStpjhjyE2K1xqq49zfb4RPjiRKbpc4',
+            'type' => 'Nginx'
+        ]);
+
+        Domain::create([
+            'name' => 'HybridExpert.com',
+            'ftp_url' => 'waws-prod-dm1-165.ftp.azurewebsites.windows.net/site/wwwroot',
+            'ftp_user' => 'HybridExpert\$HybridExpert',
+            'ftp_password' => 'YluS8Xv3G10XMvczj2sbSSS5knqlr0DlwxnsekSjZo8t6bsf5pBZSnCyP07k',
+            'type' => 'Nginx'
+        ]);
+
+
+/*
         City::create(['description' => 'Cali']);
         City::create(['description' => 'Yumbo']);
         City::create(['description' => 'La Cumbre']);
@@ -106,7 +133,6 @@ class GeneralSeeder extends Seeder
         Brand::create(['description' => 'Nintendo']);
 
         
-        /*
         $table->string('reference')->nullable();
         $table->string('reference2')->nullable();
         $table->string('description');
