@@ -347,11 +347,13 @@ return [
             'text' => 'Domains',
             'route'  => 'domains.index',
             'icon' => 'fas fa-fw fa-globe',
+            'can' => 'domains.index',
         ],
         [
             'text' => 'Links',
             'route'  => 'links.index',
             'icon' => 'fas fa-fw fa-link',
+            'can' => 'links.index',
         ],
         [
             'text' => 'Coupons',

@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful CRM. Developed by juanguillermopc@gmail.com</p>
+    <p>AskMethod</p>
 @stop
 
 @section('css')

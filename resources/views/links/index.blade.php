@@ -60,7 +60,7 @@
                             </div>
                             <div class="col-lg-12">
 
-                                @can('domains.destroy')
+                                @can('links.destroy')
                                     {!! Form::open([
                                         'method' => 'DELETE',
                                         'route' => ['links.destroy', $item],

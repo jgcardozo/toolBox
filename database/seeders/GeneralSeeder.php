@@ -16,8 +16,8 @@ class GeneralSeeder extends Seeder
 
         $roleAdmin   = Role::create(['name' => 'Admin' ,'description'=>'Admin System has access to all the menus and options' ]);
         $devMember   = Role::create(['name' => 'DevMember' ,'description'=>'Can manage Roles, users, and Domains' ]);
-        $salesMember = Role::create(['name' => 'SalesMember', 'description' => 'Can create Links']);
-        $customServiceMember = Role::create(['name' => 'CustomerServiceMember' ,'description'=>'Just can list/see Shorten Links' ]);
+        $salesMember = Role::create(['name' => 'SalesMember', 'description' => 'Can manage Links']);
+        //$customServiceMember = Role::create(['name' => 'CustomerServiceMember' ,'description'=>'Just can list/see Shorten Links' ]);
 
         //Permission::create(['name' => 'dashboard'])->syncRoles([$roleAdmin, $roleAsesor, $roleValidador]);
         Permission::create(['name' => 'users.settings', 'description'=>'Usuarios menu' ])->assignRole($roleAdmin);
@@ -41,10 +41,10 @@ class GeneralSeeder extends Seeder
         Permission::create(['name' => 'domains.edit', 'description' => 'Edit Domains'])->assignRole($roleAdmin);
         Permission::create(['name' => 'domains.destroy', 'description' => 'Delete Domains'])->assignRole($roleAdmin);
 
-        Permission::create(['name' => 'links.index', 'description' => 'List/see Links'])->assignRole($roleAdmin);
-        Permission::create(['name' => 'links.create', 'description' => 'Create Links'])->assignRole($roleAdmin);
-        Permission::create(['name' => 'links.edit', 'description' => 'Edit Links'])->assignRole($roleAdmin);
-        Permission::create(['name' => 'links.destroy', 'description' => 'Delete Links'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'links.index', 'description' => 'List/see Links'])->assignRole($roleAdmin, $salesMember);
+        Permission::create(['name' => 'links.create', 'description' => 'Create Links'])->assignRole($roleAdmin, $salesMember);
+        Permission::create(['name' => 'links.edit', 'description' => 'Edit Links'])->assignRole($roleAdmin, $salesMember);
+        Permission::create(['name' => 'links.destroy', 'description' => 'Delete Links'])->assignRole($roleAdmin, $salesMember);
 
 
         $userAdmin = User::create([
@@ -59,8 +59,15 @@ class GeneralSeeder extends Seeder
             'email'          => 'erick.acevedo@ideaware.co',
             'password'       => bcrypt('Warzone'),
             //'active'         => 1,
-        ])->assignRole($roleAdmin);
+        ])->assignRole($devMember);
         //])->assignRole($roleAsesor, $roleValidador);
+
+        User::create([
+            'name' => 'Kristin',
+            'email' => 'kristin@ideaware.co',
+            'password' => bcrypt('12345678'),
+            //'active'         => 1,
+        ])->assignRole($salesMember);
 
 
         Domain::create([
@@ -76,7 +83,7 @@ class GeneralSeeder extends Seeder
             'ftp_url' => 'waws-prod-dm1-165.ftp.azurewebsites.windows.net/site/wwwroot',
             'ftp_user' => 'bucketio\$bucketio',
             'ftp_password' => 'Q50ZgLMlyThd8wAR09Qr8RoWTQfNkPStpjhjyE2K1xqq49zfb4RPjiRKbpc4',
-            'type' => 'Nginx'
+            'type' => 'Apache'
         ]);
 
         Domain::create([
@@ -88,61 +95,6 @@ class GeneralSeeder extends Seeder
         ]);
 
 
-/*
-        City::create(['description' => 'Cali']);
-        City::create(['description' => 'Yumbo']);
-        City::create(['description' => 'La Cumbre']);
-        City::create(['description' => 'Mulalo']);
-        City::create(['description' => 'Vijes']);
-        City::create(['description' => 'Jamundi']);
-        City::create(['description' => 'Palmira']);
-        City::create(['description' => 'Candelaria']);
-        City::create(['description' => 'Rozo']);
-        City::create(['description' => 'Dagua']);
-        City::create(['description' => 'El Cerrito']);
-        City::create(['description' => 'Florida']);
-        City::create(['description' => 'Pradera']);
-
-        IdentificationType::create(['description' => 'Cedula Ciudadania']);
-        IdentificationType::create(['description' => 'Nit']);
-        IdentificationType::create(['description' => 'Pasaporte']);
-        IdentificationType::create(['description' => 'Cedula Extranjeria']);
-        IdentificationType::create(['description' => 'Contraseña']);
-        IdentificationType::create(['description' => 'Tarjeta de Identidad']);
-        IdentificationType::create(['description' => 'Registro Civil']);
-
-        ProductType::create(['description' => 'SmartPhone']);
-        ProductType::create(['description' => 'SmartWatch']);
-        ProductType::create(['description' => 'Laptop']);
-        ProductType::create(['description' => 'Consola']);
-        ProductType::create(['description' => 'Estereo']);
-        ProductType::create(['description' => 'Tablet']);
-        ProductType::create(['description' => 'Accesorio']);
-        ProductType::create(['description' => 'SmartTv']);
- 
-
-        Brand::create(['description' => 'Apple']);
-        Brand::create(['description' => 'Motorola']);
-        Brand::create(['description' => 'Samsung']);
-        Brand::create(['description' => 'Huawei']);
-        Brand::create(['description' => 'Xiaomi']);
-        Brand::create(['description' => 'Krip']);
-        Brand::create(['description' => 'Vivo']);
-        Brand::create(['description' => 'Sony']);
-        Brand::create(['description' => 'Xbox']);
-        Brand::create(['description' => 'Nintendo']);
-
-        
-        $table->string('reference')->nullable();
-        $table->string('reference2')->nullable();
-        $table->string('description');
-        $table->double('price', 15, 2);
-        $table->string('photo1')->nullable();
-        $table->string('photo2')->nullable();
-        $table->string('photo3')->nullable(); //cambiar a morph tambien la tabla clients 
-        $table->foreignId('producttype_id')->references('id')->on('product_types')->onDelete('cascade');
-        $table->foreignId('brand_id')->references('id')->on('brands')->onDelete('cascade');
-        */
     }//run
 
 

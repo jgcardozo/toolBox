@@ -43,7 +43,7 @@ class DomainController extends Controller
     public function update(Request $request, Domain $domain)
     {
         $request->validate([
-            'name' => 'required|min:6|max:30|unique:domains',
+            'name' => 'required|min:6|max:30',
             'ftp_url' => 'required|min:20',
             'ftp_user' => 'required|min:10',
             'ftp_password' => 'required|min:10',
