@@ -9,15 +9,17 @@ use Illuminate\Support\Facades\Storage;
 
 class FtpServers
 {
-    private $typeServer, $conn, $domain_id;
+    private $typeServer, $conn, $domain_id, $login, $pass;
     private $workingDir = "/site/wwwroot/";
 
 
     public function connect($domain_id)
     {
+        //dd(Domain::where('id', $domain_id)->first()->toArray());
         extract(Domain::where('id', $domain_id)->first()->toArray());
-        $this->conn = ftp_connect($ftp_url) or die("Couldn't connect to $name trying to create in index");
-        $login = ftp_login($this->conn, $ftp_user, Eds::decryption($ftp_password));
+        $this->conn = ftp_ssl_connect($ftp_url) or die("Couldn't connect to $name trying to create in index");
+        $this->login = ftp_login($this->conn, $ftp_user, Eds::decryption($ftp_password));
+        $this->pass = Eds::decryption($ftp_password);
         ftp_pasv($this->conn, true);
         ftp_chdir($this->conn, $this->workingDir);
         $this->typeServer = $type;
@@ -39,11 +41,17 @@ class FtpServers
     {
         $this->connect($domain_id); //esta $conn
 
+        dd("conn:".$this->conn." login:".$this->login." pass:".$this->pass);
+
         if ($this->typeServer == 'Nginx') {
-            $list = str_replace($this->workingDir, '', ftp_nlist($this->conn, $this->workingDir));
-            if (in_array($alias, $list)) { //!
-                return true; // si existe /alias 
-                exit;
+            //$list = str_replace($this->workingDir, '', ftp_nlist($this->conn, $this->workingDir));
+            $list = ftp_nlist($this->conn, $this->workingDir);
+
+            if ($list) { //funciona con test.askmethod que es nginx, pq no con asktxt.me  ?
+                if (in_array($alias, $list)) { //!
+                    return true; // si existe /alias 
+                    exit;
+                }
             }
 
         } //nginx
@@ -82,10 +90,11 @@ class FtpServers
     public function crudAlias($alias, $long_url, $domain_id, $action)
     {
         $this->connect($domain_id);
-        
+
         if ($this->typeServer == 'Nginx') {
             $filename = "index.php";
-            $content = "<script>window.location.href = '" . $long_url . "';</script>";
+            $contentjs = "<script>window.location.href = '" . $long_url . "';</script>";
+            $content = "<?php header('Location: " . $long_url . "'); exit; ?>";
             if ($action == 'create') {
                 ftp_mkdir($this->conn, $alias);
             }
@@ -103,7 +112,7 @@ class FtpServers
         } //nginxCases
 
         if ($this->typeServer == 'Apache') {
-          
+
             $filename = ".htaccess";
             $local_file = Storage::disk('local')->path("Apache/area-staging/$filename");
             $remote_file = $this->workingDir . $filename;

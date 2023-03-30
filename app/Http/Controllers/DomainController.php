@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Domain;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DomainController extends Controller
 {
-    public function index(){
-        $domains = Domain::all();
+    public function index()
+    {
+        $arrDomains = DB::select(DB::raw('select d.id, name, type, count(name) as cant from domains d
+                            join links l on d.id = l.domain_id 
+                            group by name, type, d.id'));
+
+        //$domains = Domain::hydrate($arrDomains);
+		$domains= Domain::all();
         return view('domains.index', compact('domains'));
     }
 
@@ -29,8 +36,8 @@ class DomainController extends Controller
             'type' => 'required|not_in:0',
         ]);
         // str_replace( ) 'ftp://' 'ftps://'   '/site/wwwroot'
-                Domain::create($request->only(['name', 'ftp_url','ftp_user', 'ftp_password', 'type']) );
-        return redirect()->route('domains.index')->with('info', 'created successfully');   
+        Domain::create($request->only(['name', 'ftp_url', 'ftp_user', 'ftp_password', 'type']));
+        return redirect()->route('domains.index')->with('info', 'created successfully');
     } //store
 
 
@@ -49,7 +56,7 @@ class DomainController extends Controller
             'ftp_password' => 'required|min:10',
             'type' => 'required|not_in:0',
         ]);
-        $domain->update($request->only(['name', 'ftp_url', 'ftp_user', 'ftp_password', 'type']) );
+        $domain->update($request->only(['name', 'ftp_url', 'ftp_user', 'ftp_password', 'type']));
         return redirect()->route('domains.index')->with('info', 'Domain has been Updated Successfully');
     } //update
 
@@ -58,7 +65,7 @@ class DomainController extends Controller
     {
         $domain->delete();
         return redirect()->route('domains.index')->with('info', 'Domain has been deleted');
-    }//destroy
+    } //destroy
 
 
-}//class
+} //class

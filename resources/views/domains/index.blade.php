@@ -5,9 +5,9 @@
 @section('content_header')
     <div class="container-fluid">
         @can('domains.create')
-        <a href="{{ route('domains.create') }}" class="btn btn-info float-right">
-            <i class="fas fa-plus mr-2"></i>New Domain
-        </a>
+            <a href="{{ route('domains.create') }}" class="btn btn-info float-right">
+                <i class="fas fa-plus mr-2"></i>New Domain
+            </a>
         @endcan
         <h2>Domains Listing</h2>
     </div>
@@ -27,17 +27,19 @@
                 <table class="table table-striped">
                     <thead class="">
                         <tr>
-                            <th>ID</th>
+                            <th>#</th>
                             <th>Domain</th>
+                            <th># Links</th>
                             <th>Type</th>
                             <th colspan="2">{{ __('actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($domains as $item)
+                        @forelse ($domains as $item)
                             <tr>
-                                <td>{{ $item->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->name }}</td>
+                                <td>{{ $item->cant }}</td>
                                 <td>{{ $item->type }}</td>
                                 <td>
                                     @can('domains.edit')
@@ -61,7 +63,11 @@
                                     @endcan
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <div class="alert alert-light" role="alert" style="background-color: #fff;">
+                                There's any Domain so far !
+                            </div>
+                        @endforelse
                     </tbody>
 
                 </table>

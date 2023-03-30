@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>Dream</b>CRM',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => '<b>ASK</b> Method',
+    'logo_img' => 'img/ask-logo-black.svg',//'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img_class' => 'brand-image', //img-circle elevation-3
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'AskMethod Logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -86,7 +86,7 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'img/ask-logo-black.svg', //'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -109,10 +109,10 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'img/ask-logo.png', //'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
-            'width' => 60,
+            'width' => 70,
             'height' => 60,
         ],
     ],
@@ -313,8 +313,8 @@ return [
             'text' => 'dashboard',
             'route'  => 'dashboard',
             'icon' => 'fas fa-fw fa-home',
-            'label' => 'Home',
-            'label_color' => 'success'
+            //'label' => 'Home',
+            //'label_color' => 'success'
         ],
         [
             'text' => 'users',
@@ -355,11 +355,18 @@ return [
             'icon' => 'fas fa-fw fa-link',
             'can' => 'links.index',
         ],
+       /* [
+            'text' => 'Close Pages',
+            'route' => 'closepages',
+            'icon' => 'fas fa-fw fa-door-open',
+            //'can' => 'links.index',
+        ], */
         [
             'text' => 'Coupons',
-            'url'  => '#',
-            'icon' => 'fas fa-fw fa-layer-group',
-            'label' => 'Comming soon',
+            'route'  => 'coupons.index',
+            'icon' => 'fas fa-fw fa-layer-group', //fa-layer-group
+            'can' => 'coupons.index',
+            'label' => 'Coming soon',
             'label_color' => 'info'
         ] 
 /*

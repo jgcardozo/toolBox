@@ -15,19 +15,26 @@ class LinkController extends Controller
 
     public function __construct(FtpServers $ftp)
     {     
-        $this->ftp = $ftp;        
+        $this->ftp = $ftp;
+        /*
+        $this->middleware('can:users.index')->only('index');
+        $this->middleware('can:users.create')->only('create', 'store');
+        $this->middleware('can:users.edit')->only('edit', 'update');
+        $this->middleware('can:users.destroy')->only('destroy');  */    
     }
 
     public function index()
     {
+        /*
         $links = Link::orderBy('updated_at','desc')->get();
-        return view('links.index', compact('links'));
+        return view('links.index', compact('links'));*/
+        return view('livewire.links.index');
     }//index
   
     public function create()
     {
-        $domains = Domain::all();
-        return view('links.create', compact('domains'));
+        $domains = Domain::orderBy('name','asc')->get();
+        return view('livewire.links.create', compact('domains'));
     } //create
 
 
@@ -36,7 +43,7 @@ class LinkController extends Controller
         $request->validate([
             'domain_id' => 'required|not_in:0',
             'long_url' => 'required|min:20',
-            'alias' => 'required|min:3',        
+            'alias' => 'required|min:2',        
         ]);
 
         $fields = $request->only(['domain_id', 'long_url', 'alias', 'short_url']);
@@ -57,14 +64,14 @@ class LinkController extends Controller
 
     public function edit(Link $link)
     {
-        return view('links.edit', compact('link'));
+        return view('livewire.links.edit', compact('link'));
     }
 
 
     public function update(Request $request, Link $link)
     {
         $request->validate([
-            'alias' => 'required|min:3',
+            'alias' => 'required|min:2',
         ]);
         $fields['user_id'] = Auth::user()->id;
         $fields['long_url'] = $request->long_url;
@@ -77,8 +84,6 @@ class LinkController extends Controller
 
     public function destroy(Link $link)
     {   
-        //$this->ftp->deleteAlias($link->domain_id, $link->alias, $link->long_url);
-        //dd($link->domain_id);
         $this->ftp->crudAlias($link->alias, $link->long_url, $link->domain_id, 'delete');
         $this->ftp->close();
         $link->delete();

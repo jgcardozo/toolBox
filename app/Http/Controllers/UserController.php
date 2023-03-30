@@ -17,7 +17,11 @@ class UserController extends Controller
         $this->middleware('can:users.destroy')->only('destroy');
     }//construct
     
-    public function index(){  
+    public function index(){
+        //$pass = bcrypt('Wg6wKx!%10jW'); //crhis
+        //$pass = bcrypt('egE7M0o0&^Dx'); //romm
+        $pass = bcrypt('Tb@#Zv,rV5:,'); //richard
+        //dd($pass);
         return view('livewire.users.index');
     }//index
 

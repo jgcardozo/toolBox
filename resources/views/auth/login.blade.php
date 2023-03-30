@@ -1,7 +1,10 @@
 <x-guest-layout>
     <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+        <x-slot name="logo" class="text-center">
+            {{--  <x-jet-authentication-card-logo /> --}}
+            <a class="d-flex justify-content-center mb-4" href="/">
+                <img src="{{ asset('img/ask-logo.png') }}" alt="ask-logo">
+            </a>
         </x-slot>
 
         <div class="card-body">
@@ -25,8 +28,8 @@
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Email') }}" />
 
-                    <x-jet-input class="{{ $errors->has('email') ? 'is-invalid' : '' }}" type="email"
-                                 name="email" :value="old('email')" required />
+                    <x-jet-input class="{{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email"
+                        :value="old('email')" required />
                     <x-jet-input-error for="email"></x-jet-input-error>
                 </div>
 
@@ -34,7 +37,7 @@
                     <x-jet-label value="{{ __('Password') }}" />
 
                     <x-jet-input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" type="password"
-                                 name="password" required autocomplete="current-password" />
+                        name="password" required autocomplete="current-password" />
                     <x-jet-input-error for="password"></x-jet-input-error>
                 </div>
 

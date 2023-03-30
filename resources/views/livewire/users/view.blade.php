@@ -1,7 +1,7 @@
 <div>
     <div class="card mt-3">
         <div class="card-header">
-            <input type="text" wire:model="search" class="form-control" placeholder="Digite nombre o email">
+            <input type="text" wire:model="search" class="form-control" placeholder="Type Name or Email">
         </div>
         @if ($users->count())
             <div class="card-body">
@@ -46,11 +46,11 @@
 
                                             @if ($user->active)
                                                 <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="fa fa-ban mr-1"></i></i>Desactivar
+                                                    <i class="fa fa-ban mr-1"></i></i>Disable
                                                 </button>
                                             @else
                                                 <button type="submit" class="btn btn-sm btn-primary">
-                                                    <i class="fa fa-lock-open mr-1"></i>Activar
+                                                    <i class="fa fa-lock-open mr-1"></i>Enable
                                                 </button>
                                             @endif
                                           
