@@ -8,6 +8,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DomainController;
+use App\Http\Controllers\PermissionController;
 //use App\Http\Controllers\PageCloseController;
 
 
@@ -22,10 +23,12 @@ Route::get('/dashboard', function () {
 })->name('dashboard'); 
 // ->middleware('can:dashboard')
 
-Route::resource('users', UserController::class)->names('users');
-Route::resource('roles', RoleController::class)->names('roles');
 
+Route::resource('roles', RoleController::class)->names('roles');
 Route::resource('domains', DomainController::class)->names('domains');
+Route::resource('permissions', PermissionController::class)->names('permissions');
+
+Route::resource('users', UserController::class)->names('users');
 Route::resource('links', LinkController::class)->names('links');
 
 // falta rolesNpermissions and lang

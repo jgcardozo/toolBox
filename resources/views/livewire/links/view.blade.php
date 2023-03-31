@@ -18,7 +18,7 @@
                     </div>
                     <select class="form-control form-control-sm" wire:model="sort">
                         <option value="updated_at">Last updated</option>
-                        <option value="user">User</option>
+                        <!-- <option value="user">User</option> -->
                         <option value="short_url">Domain</option>
                         <option value="long_url">Destination Url</option>
                     </select>
@@ -112,7 +112,11 @@
     @endforelse
 
     @if ($links->count())
-        {{ $links->links() }}
+        <div class="row">
+            <div class="mx-auto">
+                {{ $links->links() }}
+            </div>
+        </div>
     @endif
 
 </div>

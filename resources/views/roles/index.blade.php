@@ -3,32 +3,34 @@
 @section('title', 'Roles')
 
 @section('content_header')
-    @can('roles.create')
-        <a href="{{ route('roles.create') }}" class="btn btn-info float-right">
-            <i class="fas fa-user-shield mr-2"></i>{{__('roles_new')}}
-        </a>
-    @endcan
-    <h2>{{__('roles_header')}}</h2>
+    <div class="container-fluid">
+        @can('roles.create')
+            <a href="{{ route('roles.create') }}" class="btn btn-info float-right">
+                <i class="fas fa-user-shield mr-2"></i>{{ __('roles_new') }}
+            </a>
+        @endcan
+        <h2>{{ __('roles_header') }}</h2>
+    </div>
 @stop
 
 @section('content')
-    <div class="container-fluid">
 
-        @if (session('info'))
-            <div class="alert alert-info">
-                <strong>{{ session('info') }}</strong>
-            </div>
-        @endif
+    @if (session('info'))
+        <div class="alert alert-info">
+            <strong>{{ session('info') }}</strong>
+        </div>
+    @endif
 
-        <div class="card">
-            <div class="card-body">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
                 <table class="table table-striped">
                     <thead class="">
                         <tr>
                             <th>ID</th>
-                            <th>Role {{__('name')}}</th>
-                            <th>Role {{__('description')}}</th>
-                            <th colspan="2">{{__('actions')}}</th>
+                            <th>Role {{ __('name') }}</th>
+                            <th>Role {{ __('description') }}</th>
+                            <th colspan="2">{{ __('actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,7 +42,7 @@
                                 <td>
                                     @can('roles.edit')
                                         <a href="{{ route('roles.edit', $role) }}" class="btn btn-sm btn-info">
-                                            <i class="fa fa-pen mr-2"></i>{{__('edit')}}
+                                            <i class="fa fa-pen mr-2"></i>{{ __('edit') }}
                                         </a>
                                     @endcan
                                 </td>
@@ -54,7 +56,7 @@
                                             //'onsubmit' => 'return confirm(__("Are you sure you want to run this action?"))',
                                         ]) !!}
                                         <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="fa fa-trash mr-2"></i>{{__('delete')}}
+                                            <i class="fa fa-trash mr-2"></i>{{ __('delete') }}
                                         </button>
                                         {!! Form::close() !!}
                                     @endcan
@@ -67,4 +69,5 @@
             </div>
         </div>
     </div>
+
 @stop

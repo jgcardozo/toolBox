@@ -65,7 +65,7 @@
 
                     <div class="text-center">
                         <a class="btn btn-dark mx-1" href="{{ route('links.index') }}"><i class="fas fa-solid fa-backward mr-2"></i>Back</a>
-                        <button class="btn btn-info mx-1 type="submit"><i class="fa-solid fa-floppy-disks mr-2"></i>Create</button>
+                        <button class="btn btn-info mx-1 type="submit"><i class="fas fa-plus-circle mr-2"></i>Save</button>
                     </div>
 
                 </form>

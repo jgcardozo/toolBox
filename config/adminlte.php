@@ -335,7 +335,7 @@ return [
                 ],
                 [
                     'text'  => 'permissions',
-                    'url'   => '#',
+                    'route' => 'permissions.index',
                     'icon'  => 'fas fa-fw fa-lock',
                     'can'   => 'permissions.index',
                 ],

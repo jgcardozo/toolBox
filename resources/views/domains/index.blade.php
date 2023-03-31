@@ -6,7 +6,7 @@
     <div class="container-fluid">
         @can('domains.create')
             <a href="{{ route('domains.create') }}" class="btn btn-info float-right">
-                <i class="fas fa-plus mr-2"></i>New Domain
+                <i class="fas fa-plus-circle mr-2"></i>New Domain
             </a>
         @endcan
         <h2>Domains Listing</h2>
