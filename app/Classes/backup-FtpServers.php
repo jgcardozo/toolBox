@@ -9,15 +9,17 @@ use Illuminate\Support\Facades\Storage;
 
 class FtpServers
 {
-    private $typeServer, $conn, $domain_id, $login;
+    private $typeServer, $conn, $domain_id, $login, $pass;
     private $workingDir = "/site/wwwroot/";
 
 
     public function connect($domain_id)
     {
+        //dd(Domain::where('id', $domain_id)->first()->toArray());
         extract(Domain::where('id', $domain_id)->first()->toArray());
         $this->conn = ftp_ssl_connect($ftp_url) or die("Couldn't connect to $name trying to create in index");
         $this->login = ftp_login($this->conn, $ftp_user, Eds::decryption($ftp_password));
+        $this->pass = Eds::decryption($ftp_password);
         ftp_pasv($this->conn, true);
         ftp_chdir($this->conn, $this->workingDir);
         $this->typeServer = $type;
@@ -37,15 +39,19 @@ class FtpServers
 
     public function aliasExists($domain_id, $alias, $long_url)
     {
-        $this->connect($domain_id); 
-        //dd("conn:".$this->conn." login:".$this->login);
+        $this->connect($domain_id); //esta $conn
+
+        dd("conn:".$this->conn." login:".$this->login." pass:".$this->pass);
 
         if ($this->typeServer == 'Nginx') {
-            $list = str_replace($this->workingDir, '', ftp_nlist($this->conn, $this->workingDir));
-            //dd($list);
-            if (in_array($alias, $list)) { //!
-                return true; // si existe /alias 
-                exit;
+            //$list = str_replace($this->workingDir, '', ftp_nlist($this->conn, $this->workingDir));
+            $list = ftp_nlist($this->conn, $this->workingDir);
+
+            if ($list) { //funciona con test.askmethod que es nginx, pq no con asktxt.me  ?
+                if (in_array($alias, $list)) { //!
+                    return true; // si existe /alias 
+                    exit;
+                }
             }
 
         } //nginx
@@ -69,20 +75,11 @@ class FtpServers
 
             if (count($content) > 0) {
                 foreach ($content as $line_num => $lineText) {
-                    /*if (strpos($lineText, "Redirect 302 /" . strtolower($alias)) !== false) {
-                    return true;
-                    exit;
-                    } */
-                    if (strpos($lineText, 'Redirect') !== false) {
-                        $pieces = explode(" ", $lineText);
-                        //dd($pieces);
-                        //echo $pieces[2];
-                        if ($pieces[2] == "/" . strtolower($alias)) {
-                            return true;
-                            exit;
-                        } // if exists as piece
-                    } //onlyRedirect
-                } //forEach
+                    if (strpos($lineText, "Redirect 302 /" . strtolower($alias)) !== false) {
+                        return true;
+                        exit;
+                    }
+                }
             } //if $content
 
         } //apache
@@ -96,16 +93,16 @@ class FtpServers
 
         if ($this->typeServer == 'Nginx') {
             $filename = "index.php";
-            $content = "<script>window.location.href = '" . $long_url . "';</script>";
-            $content2 = "<?php header('Location: " . $long_url . "'); exit; ?>";
+            $contentjs = "<script>window.location.href = '" . $long_url . "';</script>";
+            $content = "<?php header('Location: " . $long_url . "'); exit; ?>";
             if ($action == 'create') {
                 ftp_mkdir($this->conn, $alias);
             }
             if ($action != 'delete') { //means it's create or update
                 Storage::disk('local')->put($filename, $content);
                 $local_file = Storage::disk('local')->path($filename);
-                $remote_file = $this->workingDir . "$alias/$filename"; //$this->workingDir .  
-                @ftp_put($this->conn, $remote_file, $local_file, FTP_ASCII); //FTP_ASCII FTP_BINARY
+                $remote_file = $this->workingDir . "$alias/$filename";
+                ftp_put($this->conn, $remote_file, $local_file, FTP_ASCII);
             }
             if ($action == 'delete') {
                 if (ftp_delete($this->conn, "$alias/$filename")) {
@@ -163,7 +160,7 @@ class FtpServers
                     Storage::disk('local')->put("Apache/area-staging/$filename", $newContent);
                 }
             } //actionUpdateDelete
-            @ftp_put($this->conn, $remote_file, $local_file, FTP_ASCII);
+            ftp_put($this->conn, $remote_file, $local_file, FTP_ASCII);
         } //apache
 
     } //crudAlias
@@ -193,7 +190,7 @@ class FtpServers
                 $newContent = str_replace($arrSearch, $arrReplace, $content);
                 Storage::disk('local')->put("Apache/area-staging/$filename", $newContent);
             }
-            @ftp_put($this->conn, $remote_file, $local_file, FTP_ASCII);
+            ftp_put($this->conn, $remote_file, $local_file, FTP_ASCII);
         } //apacheDel
 
     } //deleteAlias

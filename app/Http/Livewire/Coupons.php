@@ -8,6 +8,8 @@ use Livewire\WithPagination;
 
 class Coupons extends Component
 {
+// https://www.youtube.com/watch?v=taJz6BE5PKA
+
     use WithPagination;
     protected $paginationTheme = "bootstrap";
 

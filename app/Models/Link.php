@@ -62,4 +62,9 @@ class Link extends Model
         return $this->belongsTo(Domain::class);
     }
 
+    //relacion 1 a muchos polimorfica
+    public function log(){
+        return $this->morphMany('App\Models\Log', 'logable');
+    }
+
 }//class

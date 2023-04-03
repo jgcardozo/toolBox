@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Image extends Model
+class Log extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-
-    public function imageable(){
+    public function logable(){
         return $this->morphTo();
     }
+
 
 }//class
