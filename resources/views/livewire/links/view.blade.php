@@ -84,19 +84,10 @@
                             @endcan
                         </div>
                         <div class="col-lg-12">
-
-                            @can('links.destroy')
-                                {!! Form::open([
-                                    'method' => 'DELETE',
-                                    'route' => ['links.destroy', $item],
-                                    'onsubmit' => 'return confirm("Are you sure ?")',
-                                    //'onsubmit' => 'return confirm(__("Are you sure you want to run this action?"))',
-                                ]) !!}
-                                <button type="submit" class="btn btn-sm btn-danger my-1">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                                {!! Form::close() !!}
-                            @endcan
+                            <a class="btn btn-sm btn-danger my-1"
+                                wire:click="$emit('deleteLink', {{ $item }} )">
+                                <i class="fa fa-trash"></i>
+                            </a>
                         </div>
 
 
@@ -120,3 +111,35 @@
     @endif
 
 </div>
+
+{{--  https://github.com/jeroennoten/Laravel-AdminLTE/issues/777 --}}
+{{-- https://www.youtube.com/watch?v=ABCs9dbSKg4&list=PLZ2ovOgdI-kWqCet33O0WezN14KShkwER&index=20 --}}
+
+@section('plugins.Sweetalert2', true)
+
+@push('scripts')
+    <script>
+        Livewire.on('deleteLink', linkId => {
+            Swal.fire({
+                title: 'Are you sure you want to delete this Redirect ?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emitTo('links','delete', linkId);
+
+                    Swal.fire(
+                        'Deleted!',
+                        'Redirect has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        });
+
+    </script>
+@endpush

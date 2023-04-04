@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Link;
 use Livewire\Component;
+use App\Classes\FtpServers;
 use Livewire\WithPagination;
 
 
@@ -24,8 +25,12 @@ class Links extends Component
         'direction' =>['except' => 'desc'], 
         'search' =>['except' => ''], 
     ];
-    
 
+    protected $listeners = ['render','delete'];
+    
+    protected $myftp;
+
+ 
     // https://dev.to/othmane_nemli/laravel-wherehas-and-with-550o
     // https://blog.quickadminpanel.com/5-ways-to-use-raw-database-queries-in-laravel/
     public function render()
@@ -60,5 +65,12 @@ class Links extends Component
     {
         $this->resetPage();
     } //liveWire liveCycle method
+
+    public function delete(Link $link){
+        $this->myftp = new FtpServers();
+        $this->myftp->crudAlias($link->alias, $link->long_url, $link->domain_id, 'delete');
+        $this->myftp->close();
+        $link->delete();        
+    }
 
 } //class
