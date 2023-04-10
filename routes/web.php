@@ -2,6 +2,7 @@
 
 //use App\Http\Livewire\PageClose;
 //use App\Http\Livewire\ShowCoupons;
+use App\Http\Controllers\LogController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\RoleController;
@@ -30,6 +31,8 @@ Route::resource('permissions', PermissionController::class)->names('permissions'
 
 Route::resource('users', UserController::class)->names('users');
 Route::resource('links', LinkController::class)->names('links');
+
+Route::get('logtype/{model}', [LogController::class, 'logtype'])->name('log.type');
 
 // falta rolesNpermissions and lang
 

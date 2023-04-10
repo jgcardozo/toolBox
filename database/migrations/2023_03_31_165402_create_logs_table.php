@@ -16,6 +16,8 @@ class CreateLogsTable extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
             $table->string('action', 20);
+            $table->string('keyword', 100); //column keyword at that model . ie: links ->alias
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('json_old');
             $table->text('json_new')->nullable();
             $table->unsignedBigInteger('logable_id');

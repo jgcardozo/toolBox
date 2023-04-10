@@ -17,7 +17,15 @@ class Link extends Model
 
     protected $guarded = [];
 
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d H:i - e');
+    }
 
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d H:i');
+    }
 
     public function setAliasAttribute($value)
     {
@@ -34,10 +42,6 @@ class Link extends Model
         $this->attributes['short_url'] = "http://" . $this->domain_name . '/' . $this->alias;
     }
 
-    public function getUpdatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->format('Y-m-d H:i - e');
-    }
 
     public function getDomainNameAttribute()
     {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Log;
 use App\Models\Link;
 use Livewire\Component;
 use App\Classes\FtpServers;
@@ -66,7 +67,16 @@ class Links extends Component
         $this->resetPage();
     } //liveWire liveCycle method
 
-    public function delete(Link $link){
+    public function delete(Link $link)
+    {
+        $log = new Log();
+        $log['action'] = 'deleted';
+        $log['user_id'] = auth()->user()->id;
+        $log['keyword'] = strtolower(trim($link->alias));
+        $log['json_old'] = "LongUrl: $link->long_url";
+        $log->logable()->associate($link);
+        $log->save();
+
         $this->myftp = new FtpServers();
         $this->myftp->crudAlias($link->alias, $link->long_url, $link->domain_id, 'delete');
         $this->myftp->close();

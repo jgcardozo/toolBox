@@ -4,7 +4,7 @@
 
 @section('content_header')
     <div class="container-fluid">
-        <h2>Edit Domain</h2>
+        <h2>Edit Link</h2>
     </div>
 @stop
 

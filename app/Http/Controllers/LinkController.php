@@ -44,10 +44,8 @@ class LinkController extends Controller
 
     public function index()
     {
-        /*
-        $links = Link::orderBy('updated_at','desc')->get();
-        return view('links.index', compact('links'));*/
-        return view('livewire.links.index');
+        $logs = Log::where('logable_type', 'App\Models\Link')->get();;
+        return view('livewire.links.index', compact('logs'));
     } //index
 
     public function create()
@@ -100,16 +98,29 @@ class LinkController extends Controller
         $request->validate([
             'alias' => 'required|min:2',
         ]);
+        
 
         if (!$this->urlValid($request->long_url)) {
             $message = "[$request->alias] redirect was not updated because destinationUrl $request->long_url is not valid";
         } //if urlValid 
         else {
-            $fields['user_id'] = Auth::user()->id;
-            $fields['long_url'] = $request->long_url;
-            $this->ftp->crudAlias($request->alias, $request->long_url, $link->domain_id, 'update');
-            $this->ftp->close();
-            $link->update($fields);
+            if($link->long_url != $request->long_url){
+                $fields['user_id'] = Auth::user()->id;
+                $fields['long_url'] = $request->long_url;
+    
+                $log = new Log();
+                $log['action'] = 'updated';
+                $log['user_id'] = $fields['user_id'];
+                $log['keyword'] = strtolower(trim($request->alias));
+                $log['json_old'] = "LongUrl: $link->long_url";
+                $log['json_new'] = "LongUrl: $request->long_url";
+                $log->logable()->associate($link);
+                $log->save();
+
+                $this->ftp->crudAlias($request->alias, $request->long_url, $link->domain_id, 'update');
+                $this->ftp->close();
+                $link->update($fields);
+            }
             $message = 'Link has been Updated Successfully';
         }
         return redirect()->route('links.index')->with('info', $message);
@@ -125,7 +136,7 @@ class LinkController extends Controller
 
 
         $log = new Log();
-        $log['action'] = 'delete';
+        $log['action'] = 'deleted';
         $log['json_old'] = $link->toJson();
         $log->logable()->associate($link);
         $log->save();

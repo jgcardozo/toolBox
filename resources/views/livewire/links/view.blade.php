@@ -57,7 +57,7 @@
                         <p class="card-text">
                         <div class="float-left">
                             <i class="fas fa-fw fa-link mr-2"></i>
-                            <a href="{{ $item->short_url }}" target="_blank">{{ $item->short_url }}</a>
+                            <a href="{{ $item->short_url }}" target="_blank" class="alink">{{ $item->short_url }}</a>
                         </div>
                         <div class="float-right">
                             <i class="fas fa-fw fa-user mr-2"></i>{{ $item->user_name }}
@@ -67,7 +67,7 @@
 
                         <p class="card-text">
                             <i class="fas fa-fw fa-globe mr-2"></i>
-                            <a href="{{ $item->long_url }}" target="_blank">{{ $item->long_url }}</a>
+                            <a href="{{ $item->long_url }}" target="_blank" class="alink">{{ $item->long_url }}</a>
                         </p>
                         <p class="card-text"><small style="color:blueviolet;">Last updated:
                                 {{ $item->updated_at }}</small></p>
@@ -76,7 +76,6 @@
                 <div class="col-sm-1 my-auto text-center">
                     <div class="row ">
                         <div class="col-lg-12">
-
                             @can('links.edit')
                                 <a href="{{ route('links.edit', $item) }}" class="btn btn-sm btn-info my-1">
                                     <i class="fa fa-pen"></i>
@@ -84,13 +83,13 @@
                             @endcan
                         </div>
                         <div class="col-lg-12">
-                            <a class="btn btn-sm btn-danger my-1"
-                                wire:click="$emit('deleteLink', {{ $item }} )">
-                                <i class="fa fa-trash"></i>
-                            </a>
+                            @can('links.destroy')
+                                <a class="btn btn-sm btn-danger my-1"
+                                    wire:click="$emit('deleteLink', {{ $item }} )">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            @endcan
                         </div>
-
-
                     </div>
 
                 </div>
@@ -112,12 +111,25 @@
 
 </div>
 
+
+@push('css')
+    <style>
+        .aalink {
+            color:blueviolet;
+        }
+        .aalink:hover {
+            color:blueviolet;
+            font-weight: bold;
+        }
+    </style>
+@endpush
+
 {{--  https://github.com/jeroennoten/Laravel-AdminLTE/issues/777 --}}
 {{-- https://www.youtube.com/watch?v=ABCs9dbSKg4&list=PLZ2ovOgdI-kWqCet33O0WezN14KShkwER&index=20 --}}
 
 @section('plugins.Sweetalert2', true)
 
-@push('scripts')
+@push('js')
     <script>
         Livewire.on('deleteLink', linkId => {
             Swal.fire({
@@ -130,7 +142,7 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emitTo('links','delete', linkId);
+                    Livewire.emitTo('links', 'delete', linkId);
 
                     Swal.fire(
                         'Deleted!',
@@ -140,6 +152,5 @@
                 }
             })
         });
-
     </script>
 @endpush
