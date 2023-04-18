@@ -17,7 +17,7 @@ class CreateLinksTable extends Migration
             $table->id();
             $table->foreignId('domain_id')->references('id')->on('domains')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('alias', 20);
+            $table->string('alias', 40);
             $table->string('long_url');
             $table->string('short_url');
             $table->timestamps();

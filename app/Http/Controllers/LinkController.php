@@ -18,10 +18,10 @@ class LinkController extends Controller
     {
         $this->ftp = $ftp;
         /*
-        $this->middleware('can:users.index')->only('index');
-        $this->middleware('can:users.create')->only('create', 'store');
-        $this->middleware('can:users.edit')->only('edit', 'update');
-        $this->middleware('can:users.destroy')->only('destroy');  */
+        $this->middleware('can:links.index')->only('index');
+        $this->middleware('can:links.create')->only('create', 'store');
+        $this->middleware('can:links.edit')->only('edit', 'update');
+        $this->middleware('can:links.destroy')->only('destroy');  */
     }
 
     private function urlValid($url)
@@ -127,35 +127,10 @@ class LinkController extends Controller
     } //update
 
 
-    public function destroy(Link $link)
+    public function htproceso()
     {
-        //https://www.larashout.com/laravel-collection-using-tojson-method
-        //https://es.stackoverflow.com/questions/567674/log-de-modificaciones-en-laravel
-        //dd($link->toJson(JSON_PRETTY_PRINT));
-        //soft delete = https://codeanddeploy.com/blog/laravel/complete-laravel-8-soft-delete-restore-deleted-records-tutorial
-
-
-        $log = new Log();
-        $log['action'] = 'deleted';
-        $log['json_old'] = $link->toJson();
-        $log->logable()->associate($link);
-        $log->save();
-
-        /*
-        $fields['json_old']=''; 
-        $log = Log::create($fields);
-        */
-
-
-
-
-
-        /*
-        $this->ftp->crudAlias($link->alias, $link->long_url, $link->domain_id, 'delete');
-        $this->ftp->close(); 
-        $link->delete();
-        return redirect()->route('links.index')->with('info', 'Link has been deleted');
-        */
-    } //destroy
+       //dd("llego");
+       $this->ftp->htproceso('askmethod.com');
+    } //htproceso
 
 } //class

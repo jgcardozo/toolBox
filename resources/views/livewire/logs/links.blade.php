@@ -1,7 +1,11 @@
-{{-- https://www.youtube.com/watch?v=qgG8fUDO9Kc --}}
+{{-- dataTables
+https://www.youtube.com/watch?v=qgG8fUDO9Kc
+https://www.youtube.com/watch?v=X-QC6uZXuk0 
+--}}
 
 {{-- quitar cache del navegador
-https://decodecms.com/refrescar-los-estilos-css-almacenados-en-el-navegador-de-un-usuario/ --}}
+https://decodecms.com/refrescar-los-estilos-css-almacenados-en-el-navegador-de-un-usuario/ 
+--}}
 <div>
  <div class="table-reponsive mb-3">
 

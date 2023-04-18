@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Domain;
 use App\Models\User;
+use App\Models\Coupon;
+use App\Models\Domain;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -45,6 +46,11 @@ class GeneralSeeder extends Seeder
         Permission::create(['name' => 'links.create', 'description' => 'Create Links'])->assignRole($roleAdmin, $devMember, $salesMember);
         Permission::create(['name' => 'links.edit', 'description' => 'Edit Links'])->assignRole($roleAdmin, $devMember, $salesMember);
         Permission::create(['name' => 'links.destroy', 'description' => 'Delete Links'])->assignRole($roleAdmin, $devMember, $salesMember);
+
+        Permission::create(['name' => 'coupons.index', 'description' => 'List/see Coupons'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'coupons.create', 'description' => 'Create Coupons'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'coupons.edit', 'description' => 'Edit Coupons'])->assignRole($roleAdmin);
+        Permission::create(['name' => 'coupons.destroy', 'description' => 'Delete Coupons'])->assignRole($roleAdmin);
 
 
         $userAdmin = User::create([
@@ -144,12 +150,21 @@ class GeneralSeeder extends Seeder
             'type' => 'Nginx'
         ]);
 
-
+        Coupon::create([
+            'name' => 'AskMet',
+            'discount' => 100,
+            'description' => 'using for testing of the devTeam',
+            'limit' => 200
+        ]);
+        Coupon::create([
+            'name' => '30off',
+            'discount' => 30,
+            'description' => 'gives you 30 usd OFF',
+            'limit' => 3000
+        ]);
 
 
 
     }//run
-
-
 
 }//class

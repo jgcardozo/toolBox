@@ -1,0 +1,13 @@
+# laravel 10 + bootstrap + adminlte
+https://www.youtube.com/watch?v=wYqECB_5UPI
+
+
+# livewire spatie permissions
+https://laracasts.com/discuss/channels/livewire/using-spatie-permission-package-with-livewire
+
+
+# livewire crud generator
+https://github.com/flightsadmin/livewire-crud
+https://www.youtube.com/watch?v=4YJStyb9kJA
+
+php artisan livewire:publish --pagination

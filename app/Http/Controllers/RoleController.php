@@ -40,7 +40,7 @@ class RoleController extends Controller
       
         $newRole = Role::create($request->only(['name','description']));
         $newRole->permissions()->sync($request->permissions); 
-        return redirect()->route('roles.index')->with('info', 'Creado con exito');
+        return redirect()->route('roles.index')->with('info', 'Role has been Created');
     }//store
 
    
@@ -59,7 +59,7 @@ class RoleController extends Controller
         ]);
         $role->update($request->only(['name', 'description']));
         $role->permissions()->sync($request->permissions);
-        return redirect()->route('roles.index')->with('info', 'Actualizado con exito');
+        return redirect()->route('roles.index')->with('info', 'Role has been Updated');
     }//update
 
     public function show(Role $role)
@@ -70,7 +70,7 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        return redirect()->route('roles.index')->with('info', 'Se ha eliminado el Role'); 
+        return redirect()->route('roles.index')->with('info', 'Role has been Deleted'); 
     }//destroy
 
 

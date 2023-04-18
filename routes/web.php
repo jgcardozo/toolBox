@@ -1,16 +1,17 @@
 <?php
-
 //use App\Http\Livewire\PageClose;
-//use App\Http\Livewire\ShowCoupons;
-use App\Http\Controllers\LogController;
+//use App\Http\Controllers\PageCloseController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\PermissionController;
-//use App\Http\Controllers\PageCloseController;
+use App\Http\Controllers\LogController;
+use App\Http\Controllers\CouponController;
+use App\Http\Livewire\Coupons;
+
 
 
 Route::get('/', function () {
@@ -34,15 +35,12 @@ Route::resource('links', LinkController::class)->names('links');
 
 Route::get('logtype/{model}', [LogController::class, 'logtype'])->name('log.type');
 
-// falta rolesNpermissions and lang
+
+Route::view('coupons', 'livewire.coupons.index')->name('coupons.index');
+//Route::resource('coupons', CouponController::class)->names('coupons');
+
+Route::get('htproceso', [LinkController::class, 'htproceso'])->name('links.htproceso');
 
 //Route::resource('closepages', PageCloseController::class)->names('closepages');
 //Route::get('/closepages', PageClose::class)->name('closepages');
-
-//Route::get('/coupons', ShowCoupons::class)->name('coupons');
-Route::resource('coupons', CouponController::class)->names('coupons');
-
-
-
-
 

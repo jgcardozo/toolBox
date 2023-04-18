@@ -4,7 +4,7 @@
             <div class="col-sm-6 form-group">
                 <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                        <div class="input-group-text bg-dark">Search</div>
+                        <div class="input-group-text bg-dark">Search<i class="fas fa-magnifying-glass ml-2"></i></div>
                     </div>
                     <input type="text" wire:model="search" class="form-control form-control-sm"
                         placeholder="Type to Search by Alias, ShortUrl or longUrl">
@@ -14,13 +14,14 @@
             <div class="col-sm-4 form-group">
                 <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
-                        <div class="input-group-text bg-dark">Sort By</div>
+                        <div class="input-group-text bg-dark">Sort By<i class="fa-solid fa-sort ml-2"></i></div>
                     </div>
                     <select class="form-control form-control-sm" wire:model="sort">
-                        <option value="updated_at">Last updated</option>
                         <!-- <option value="user">User</option> -->
+                        <option value="alias">Alias</option>
                         <option value="short_url">Domain</option>
                         <option value="long_url">Destination Url</option>
+                        <option value="updated_at">Last updated</option>
                     </select>
                     <select class="form-control form-control-sm" wire:model="direction">
                         <option value="desc">Desc</option>
@@ -49,52 +50,48 @@
     {{-- <div>sortby: @json($sort)</div> --}}
 
     @forelse ($links as $item)
-        <div class="card my-2">
-            <div class="row no-gutters">
-                <div class="col-md-11">
-                    <div class="card-body " style="color:blueviolet;">
+        <div class="card">
+            <div class="card-body">
 
-                        <p class="card-text">
-                        <div class="float-left">
+                <div class="row">
+                    <div class="col-lg-9 bg-infoo alink">
+                        <p class="mb-1">
                             <i class="fas fa-fw fa-link mr-2"></i>
                             <a href="{{ $item->short_url }}" target="_blank" class="alink">{{ $item->short_url }}</a>
-                        </div>
-                        <div class="float-right">
-                            <i class="fas fa-fw fa-user mr-2"></i>{{ $item->user_name }}
-                        </div>
                         </p>
-
-
-                        <p class="card-text">
+                        <p class="mb-1">
                             <i class="fas fa-fw fa-globe mr-2"></i>
                             <a href="{{ $item->long_url }}" target="_blank" class="alink">{{ $item->long_url }}</a>
                         </p>
-                        <p class="card-text"><small style="color:blueviolet;">Last updated:
-                                {{ $item->updated_at }}</small></p>
+                        <p class="mb-1">
+                            <i class="fa-regular fa-calendar-days ml-1 mr-2"></i>
+                            {{ $item->updated_at }}
+                        </p>
                     </div>
-                </div>
-                <div class="col-sm-1 my-auto text-center">
-                    <div class="row ">
-                        <div class="col-lg-12">
+                    <div class="col-lg-2 my-auto py-2 bg-secondaryy alink">
+                        <i class="fas fa-fw fa-user mr-2"></i>{{ $item->user_name }}
+                    </div>
+                    <div class="col-lg-1 text-center my-auto py-2 bg-warningg">
+                        <div class="m-1">
                             @can('links.edit')
-                                <a href="{{ route('links.edit', $item) }}" class="btn btn-sm btn-info my-1">
+                                <a href="{{ route('links.edit', $item) }}" class="btn btn-sm btn-info">
                                     <i class="fa fa-pen"></i>
                                 </a>
                             @endcan
                         </div>
-                        <div class="col-lg-12">
+                        <div class="m-1"> 
                             @can('links.destroy')
-                                <a class="btn btn-sm btn-danger my-1"
-                                    wire:click="$emit('deleteLink', {{ $item }} )">
+                                <a class="btn btn-sm btn-danger" wire:click="$emit('deleteLink', {{ $item }} )">
                                     <i class="fa fa-trash"></i>
                                 </a>
                             @endcan
                         </div>
-                    </div>
 
-                </div>
-            </div>
-        </div>
+                    </div>
+                </div> <!-- row -->
+            </div><!-- card-body -->
+        </div> <!-- card -->
+
     @empty
         <div class="alert alert-light my-2" role="alert" style="background-color: #fff;">
             There's any Link so far !
@@ -102,10 +99,8 @@
     @endforelse
 
     @if ($links->count())
-        <div class="row">
-            <div class="mx-auto">
-                {{ $links->links() }}
-            </div>
+        <div class="mt-3">
+            {{ $links->links() }}
         </div>
     @endif
 
@@ -114,12 +109,13 @@
 
 @push('css')
     <style>
-        .aalink {
-            color:blueviolet;
+        .alink {
+            color: blueviolet;
         }
+
         .aalink:hover {
-            color:blueviolet;
-            font-weight: bold;
+            color: #6612f8;
+
         }
     </style>
 @endpush

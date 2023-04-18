@@ -42,7 +42,7 @@ class Links extends Component
             ->orWhere('long_url', 'LIKE', '%' . $this->search . '%')
             ->orderBy($this->sort, $this->direction)
             ->paginate($this->cant);
-
+            //php artisan livewire:publish --pagination    
         return view('livewire.links.view', compact('links'));
     } //render
 
