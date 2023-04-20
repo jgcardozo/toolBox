@@ -193,7 +193,7 @@ class FtpServers
 
 
     public function htproceso($domain_name)
-    {
+    {   dd("htproceso using $domain_name now disabled");
         $filename = ".htaccess";
         $path = "htproceso/$filename"; //domain_name for real
         $local_file = Storage::disk('local')->path($path);
@@ -230,7 +230,9 @@ class FtpServers
                             $fields['user_id'] = 1;
                             $fields['alias'] = substr($alias, 1);
                             $fields['long_url'] = trim($long_url);
-                            $fields['short_url'] = trim("http://$domain_name".$alias);                      
+                            $fields['short_url'] = trim("http://$domain_name".$alias);
+                            $fields['created_at'] = "2023-01-01 23:39:53";
+                            $fields['updated_at'] = "2023-01-01 23:39:53";                     
                             Link::create($fields);
                         } //sino existe ya el alias con sus variaciones, entonces lo crea
                     } //if piece2 exist

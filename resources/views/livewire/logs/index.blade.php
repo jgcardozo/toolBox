@@ -15,6 +15,7 @@
             <strong>{{ session('info') }}</strong>
         </div>
     @endif
+    
     @livewire('logs')
-
+    
 @stop

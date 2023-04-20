@@ -4,7 +4,7 @@
 
         <div class="row">
 
-            <div class="col-sm-12 col-md-5  my-auto">
+            <div class="col-12 col-md-5  my-auto">
                 <div>
                     <p class="text-primary">
                         <span>{!! __('Showing') !!}</span>
@@ -18,8 +18,8 @@
                 </div>
             </div>
 
-            <div class="col-sm-12 col-md-7">
-                <nav>
+            <div class="col-12 col-md-7">
+                <nav class="overflow-auto">
                     <ul class="pagination">
                         {{-- Previous Page Link --}}
                         @if ($paginator->onFirstPage())
@@ -31,10 +31,11 @@
                                 <button type="button"
                                     dusk="previousPage{{ $paginator->getPageName() == 'page' ? '' : '.' . $paginator->getPageName() }}"
                                     class="page-link" wire:click="previousPage('{{ $paginator->getPageName() }}')"
-                                    wire:loading.attr="disabled" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</button>
+                                    wire:loading.attr="disabled" rel="prev"
+                                    aria-label="@lang('pagination.previous')">&lsaquo;</button>
                             </li>
                         @endif
-        
+
                         {{-- Pagination Elements --}}
                         @foreach ($elements as $element)
                             {{-- "Three Dots" Separator --}}
@@ -42,7 +43,7 @@
                                 <li class="page-item disabled" aria-disabled="true"><span
                                         class="page-link">{{ $element }}</span></li>
                             @endif
-        
+
                             {{-- Array Of Links --}}
                             @if (is_array($element))
                                 @foreach ($element as $page => $url)
@@ -60,14 +61,15 @@
                                 @endforeach
                             @endif
                         @endforeach
-        
+
                         {{-- Next Page Link --}}
                         @if ($paginator->hasMorePages())
                             <li class="page-item">
                                 <button type="button"
                                     dusk="nextPage{{ $paginator->getPageName() == 'page' ? '' : '.' . $paginator->getPageName() }}"
                                     class="page-link" wire:click="nextPage('{{ $paginator->getPageName() }}')"
-                                    wire:loading.attr="disabled" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</button>
+                                    wire:loading.attr="disabled" rel="next"
+                                    aria-label="@lang('pagination.next')">&rsaquo;</button>
                             </li>
                         @else
                             <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
@@ -78,7 +80,8 @@
                 </nav>
             </div>
 
-        </div><!--row-->
+        </div>
+        <!--row-->
 
     @endif
 </div>

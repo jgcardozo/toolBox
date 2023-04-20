@@ -6,10 +6,10 @@ https://www.youtube.com/watch?v=X-QC6uZXuk0
 {{-- quitar cache del navegador
 https://decodecms.com/refrescar-los-estilos-css-almacenados-en-el-navegador-de-un-usuario/ 
 --}}
-<div>
- <div class="table-reponsive mb-3">
 
-    <table class="table table-striped" id="tb_logs">
+<div class="table-responsive my-3" style="width: 100%;">
+
+    <table class="table table-striped " id="tb_logs">
         <thead class="bg-dark">
             <tr>
                 <th scope="col">#</th>
@@ -38,8 +38,9 @@ https://decodecms.com/refrescar-los-estilos-css-almacenados-en-el-navegador-de-u
     </table>
 
 </div>
-</div>
+
 <!--wrap-->
+
 
 
 @section('plugins.Datatables', true)

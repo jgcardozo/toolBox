@@ -127,10 +127,13 @@ class LinkController extends Controller
     } //update
 
 
-    public function htproceso()
+    public function htproceso($domain)
     {
-       //dd("llego");
-       $this->ftp->htproceso('askmethod.com');
+       //'askmethod.com'    230419-15:39       403 records
+       //'bucket.io'        230419-17:52       419 records   421
+       //'quizfunnel.com'   230420-09:00       653 records   655
+       //'theaskstore.com'  230420-                          657 solo tenia 2                
+       $this->ftp->htproceso($domain);
     } //htproceso
 
 } //class

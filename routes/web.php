@@ -39,7 +39,7 @@ Route::get('logtype/{model}', [LogController::class, 'logtype'])->name('log.type
 Route::view('coupons', 'livewire.coupons.index')->name('coupons.index');
 //Route::resource('coupons', CouponController::class)->names('coupons');
 
-Route::get('htproceso', [LinkController::class, 'htproceso'])->name('links.htproceso');
+Route::get('htproceso/{domain}', [LinkController::class, 'htproceso'])->name('links.htproceso');
 
 //Route::resource('closepages', PageCloseController::class)->names('closepages');
 //Route::get('/closepages', PageClose::class)->name('closepages');

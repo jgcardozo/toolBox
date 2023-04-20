@@ -25,5 +25,5 @@
             <strong>{{ session('info') }}</strong>
         </div>
     @endif
-    @livewire('links')
+    @livewire('links') 
 @stop

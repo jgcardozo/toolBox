@@ -71,7 +71,7 @@
                     <div class="col-lg-2 my-auto py-2 bg-secondaryy alink">
                         <i class="fas fa-fw fa-user mr-2"></i>{{ $item->user_name }}
                     </div>
-                    <div class="col-lg-1 text-center my-auto py-2 bg-warningg">
+                    <div class="col-lg-1 my-auto py-2 bg-warningg d-flex flex-row justify-content-center">
                         <div class="m-1">
                             @can('links.edit')
                                 <a href="{{ route('links.edit', $item) }}" class="btn btn-sm btn-info">
