@@ -22,8 +22,8 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="discount"></label>
-                            <input wire:model="discount" type="text" class="form-control" id="discount"
-                                placeholder="Discount">
+                            <input wire:model.debounce.500ms="discount" type="text" class="form-control" id="discount"
+                                placeholder="Discount"  >
                             @error('discount')
                                 <span class="error text-danger">{{ $message }}</span>
                             @enderror
@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="available_until"></label>
-                            <input wire:model="available_until" type="text" class="form-control" id="available_until"
+                            <input wire:model="available_until" type="text" class="form-control datetimepicker" id="available_until"
                                 placeholder="Available Until">
                             @error('available_until')
                                 <span class="error text-danger">{{ $message }}</span>
@@ -63,7 +63,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-dark close-btn" data-dismiss="modal"><i class="fas fa-solid fa-backward mr-2"></i>Close</button>
-                <button type="button" wire:click.prevent="store()" class="btn btn-sm btn-info" data-dismiss="modal">Save <i class="fa fa-sd-card ml-2"></i></button>
+                <button type="button" wire:click.prevent="store()" class="btn btn-sm btn-info close-modal" >Save <i class="fa fa-sd-card ml-2"></i></button>
             </div>
         </div>
     </div>

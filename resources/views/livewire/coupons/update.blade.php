@@ -44,7 +44,7 @@
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="available_until"></label>
-                            <input wire:model="available_until" type="text" class="form-control" id="available_until"
+                            <input wire:model="available_until" type="text" class="form-control datetimepicker" id="available_until"
                                 placeholder="Available Until">
                             @error('available_until')
                                 <span class="error text-danger">{{ $message }}</span>

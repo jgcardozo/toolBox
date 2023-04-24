@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\DB;
 
 class DomainController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:domains.index')->only('index');
+        $this->middleware('can:domains.create')->only('create', 'store');
+        $this->middleware('can:domains.edit')->only('edit', 'update');
+        $this->middleware('can:domains.destroy')->only('destroy');
+    }
+
+
     public function index()
     {
         $arrDomains = DB::select(DB::raw('select d.id, name, type, count(name) as cant from domains d

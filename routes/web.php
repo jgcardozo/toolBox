@@ -37,6 +37,7 @@ Route::get('logtype/{model}', [LogController::class, 'logtype'])->name('log.type
 
 
 Route::view('coupons', 'livewire.coupons.index')->name('coupons.index');
+Route::get('coupons/{coupon}', [CouponController::class, 'couponExists'])->name('coupons.exists');
 //Route::resource('coupons', CouponController::class)->names('coupons');
 
 Route::get('htproceso/{domain}', [LinkController::class, 'htproceso'])->name('links.htproceso');

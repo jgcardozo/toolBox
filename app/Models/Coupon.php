@@ -24,7 +24,6 @@ class Coupon extends Model
     
     
     public function getDiscountAttribute($value){
-        //return number_format($value,0);
         return number_format(str_replace(',', '', $value), 0); 
     } 
 

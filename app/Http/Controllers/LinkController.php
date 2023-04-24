@@ -17,11 +17,10 @@ class LinkController extends Controller
     public function __construct(FtpServers $ftp)
     {
         $this->ftp = $ftp;
-        /*
         $this->middleware('can:links.index')->only('index');
         $this->middleware('can:links.create')->only('create', 'store');
         $this->middleware('can:links.edit')->only('edit', 'update');
-        $this->middleware('can:links.destroy')->only('destroy');  */
+        $this->middleware('can:links.destroy')->only('destroy');
     }
 
     private function urlValid($url)

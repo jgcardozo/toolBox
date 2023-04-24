@@ -11,3 +11,26 @@ https://github.com/flightsadmin/livewire-crud
 https://www.youtube.com/watch?v=4YJStyb9kJA
 
 php artisan livewire:publish --pagination
+
+
+#datetimepicker bootstrap laravel
+https://www.youtube.com/watch?v=9AtDV5EbDm0
+
+
+#datepicker bootstrap livewire adminlte
+https://xdsoft.net/jqplugins/datetimepicker/
+https://stackoverflow.com/questions/73482988/livewire-resets-date-picker-on-update
+
+
+CREATE TABLE `coupon_detail` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,	
+  `coupon` varchar(30) NOT NULL,
+  `affiliate_id` varchar(30) NOT NULL,
+  `affiliate` varchar(100) DEFAULT NULL,
+  `url` varchar(500) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+  -- KEY `coupon` (`coupon`),
+  -- CONSTRAINT `coupon_detail` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`coupon`)
+)

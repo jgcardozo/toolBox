@@ -38,7 +38,7 @@
                         <option value="all" selected>All</option>
                         <option value="available">Availables</option>
                         <option value="not_ava">Not availables</option>
-                    </select>
+                    </select>{{ $list }} {{ $status }}
                 </div>
             </div>
 
@@ -71,90 +71,101 @@
 
                         <table class="table table-sm">
                             <thead class="bg-dark text-sm">
-                                <tr class="align-middle">
-                                    <th class="align-middle">
-                                        <!-- align-middle -->
-                                        ID
-                                        @if ($sort == 'id')
-                                            @if ($direction == 'asc')
-                                                <i class="fas fa-sort-alpha-up-alt fa-xs"></i>
+                                <tr>
+                                    <th class="align-middle" wire:click="order('id')">
+                                        <div class="d-flex align-items-center">
+                                            ID
+                                            @if ($sort == 'id')
+                                                @if ($direction == 'asc')
+                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2"></i>
+                                                @else
+                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2"></i>
+                                                @endif
                                             @else
-                                                <i class="fas fa-sort-alpha-down-alt fa-xs"></i>
+                                                <i class="fas fa-sort fa-xs ml-2"></i>
                                             @endif
-                                        @else
-                                            <i class="fas fa-sort fa-xs"></i>
-                                        @endif
+                                        </div>
                                     </th>
                                     <th class="align-middle" wire:click="order('name')">
-                                        COUPON
-                                        @if ($sort == 'name')
-                                            @if ($direction == 'asc')
-                                                <i class="fas fa-sort-alpha-up-alt float-right fa-xs"></i>
+                                        <div class="d-flex align-items-center">
+                                            COUPON
+                                            @if ($sort == 'name')
+                                                @if ($direction == 'asc')
+                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2"></i>
+                                                @else
+                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2"></i>
+                                                @endif
                                             @else
-                                                <i class="fas fa-sort-alpha-down-alt float-right fa-xs"></i>
+                                                <i class="fas fa-sort fa-xs ml-2"></i>
                                             @endif
-                                        @else
-                                            <i class="fas fa-sort float-right fa-xs"></i>
-                                        @endif
-
+                                        </div>
                                     </th>
-                                    <th scope="col" class=" ">
+                                    <th class="align-middle">
                                         ACTIVE
                                     </th>
-                                    <th scope="col" class=" " wire:click="">
+                                    <th class="align-middle" wire:click="">
                                         USED
                                     </th>
                                     <th class="align-middle" wire:click="order('limit')">
-                                        LIMIT
-                                        @if ($sort == 'limit')
-                                            @if ($direction == 'asc')
-                                                <i class="fas fa-sort-alpha-up-alt float-right fa-xs"></i>
+                                        <div class="d-flex align-items-center">
+                                            LIMIT
+                                            @if ($sort == 'limit')
+                                                @if ($direction == 'asc')
+                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2"></i>
+                                                @else
+                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2"></i>
+                                                @endif
                                             @else
-                                                <i class="fas fa-sort-alpha-down-alt float-right fa-xs"></i>
+                                                <i class="fas fa-sort fa-xs ml-2"></i>
                                             @endif
-                                        @else
-                                            <i class="fas fa-sort float-right fa-xs"></i>
-                                        @endif
+                                        </div>
                                     </th>
-                                    <th scope="col" class=" " wire:click="order('description')">
-                                        DESCRIPTION
-                                        @if ($sort == 'description')
-                                            @if ($direction == 'asc')
-                                                <i class="fas fa-sort-alpha-up-alt float-right fa-xs"></i>
+                                    <th class="align-middle" wire:click="order('description')">
+                                        <div class="d-flex align-items-center">
+                                            DESCRIPTION
+                                            @if ($sort == 'description')
+                                                @if ($direction == 'asc')
+                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2"></i>
+                                                @else
+                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2"></i>
+                                                @endif
                                             @else
-                                                <i class="fas fa-sort-alpha-down-alt float-right fa-xs"></i>
+                                                <i class="fas fa-sort fa-xs ml-2"></i>
                                             @endif
-                                        @else
-                                            <i class="fas fa-sort float-right fa-xs"></i>
-                                        @endif
+                                        </div>
                                     </th>
-                                    <th scope="col" class=" " wire:click="order('discount')">
-                                        DISCOUNT
-                                        @if ($sort == 'discount')
-                                            @if ($direction == 'asc')
-                                                <i class="fas fa-sort-alpha-up-alt float-right fa-xs"></i>
+                                    <th class="align-middle" wire:click="order('discount')">
+                                        <div class="d-flex align-items-center">
+                                            DISCOUNT
+                                            @if ($sort == 'discount')
+                                                @if ($direction == 'asc')
+                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2"></i>
+                                                @else
+                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2"></i>
+                                                @endif
                                             @else
-                                                <i class="fas fa-sort-alpha-down-alt float-right fa-xs"></i>
+                                                <i class="fas fa-sort float-right fa-xs ml-2"></i>
                                             @endif
-                                        @else
-                                            <i class="fas fa-sort float-right fa-xs"></i>
-                                        @endif
+                                        </div>
                                     </th>
-                                    <th scope="col" class="" wire:click="order('available_until')">
-                                        AVAILABLE UNTIL
-                                        @if ($sort == 'available_until')
-                                            @if ($direction == 'asc')
-                                                <i class="fas fa-sort-alpha-up-alt float-right fa-xs"></i>
+                                    <th class="align-middle" wire:click="order('available_until')">
+                                        <div class="d-flex align-items-center">
+                                            AVAILABLE UNTIL
+                                            @if ($sort == 'available_until')
+                                                @if ($direction == 'asc')
+                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2"></i>
+                                                @else
+                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2"></i>
+                                                @endif
                                             @else
-                                                <i class="fas fa-sort-alpha-down-alt float-right fa-xs"></i>
+                                                <i class="fas fa-sort fa-xs ml-2"></i>
                                             @endif
-                                        @else
-                                            <i class="fas fa-sort float-right fa-xs"></i>
-                                        @endif
-
+                                        </div>
                                     </th>
-                                    <th scope="col">
-                                        ACTIONS
+                                    <th class="align-middle">
+                                        <div class="d-flex align-items-center">
+                                            ACTIONS
+                                        </div>
                                     </th>
                                 </tr>
                             </thead>
@@ -169,11 +180,14 @@
                                         </td>
 
                                         <td class="whitespace-nowrap">
-                                            <div class="text-sm d-flex justify-content-center">
+                                            <div class="text-sm d-flex justify-content-center align-items-center"
+                                                style="height: 30px;">
                                                 @if ($coupon->actived)
-                                                    <i class="fas fa-circle-check" style="color:green"></i>
+                                                    <i class="fas fa-circle-check" style="color:green; cursor:pointer"
+                                                        wire:click="$emit('changeStatu', {{ $coupon->id }} , 'disable')"></i>
                                                 @else
-                                                    <i class="fas fa-circle-xmark" style="color:red"></i>
+                                                    <i class="fas fa-circle-xmark" style="color:red; cursor:pointer"
+                                                        wire:click="$emit('changeStatu', {{ $coupon->id }} , 'enable')"></i>
                                                 @endif
                                             </div>
                                         </td>
@@ -193,13 +207,13 @@
                                             <div class="text-sm">{{ $coupon->available_until }}</div>
                                         </td>
 
-                                        <td class="d-flex justify-content-around">
+                                        <td class="d-flex justify-content-center">
                                             <div class="item">
                                                 <a class="btn btn-sm btn-dark">
                                                     <i class="fas fa-file fa-xs"></i>
                                                 </a>
                                             </div>
-                                            <div class="item">
+                                            <div class="item mx-1">
                                                 {{-- @livewire('coupons.edit-coupon', ['coupon' => $coupon], key($coupon->id)) --}}
                                                 <a data-toggle="modal" data-target="#updateModal"
                                                     class="btn btn-sm btn-info"
@@ -226,7 +240,7 @@
                             </div>
                         @endif
                     @else
-                        <div class="px-6 py-4">No matching records</div>
+                        <div class="d-flex justify-content-center mb-3">There is not Records</div>
                     @endif
                 </div><!-- col -->
             </div><!-- row -->
@@ -237,9 +251,36 @@
 </div> <!-- template -->
 
 
+
+
+
+
+
 @section('plugins.Sweetalert2', true)
 
 @push('js')
+    {{-- https://xdsoft.net/jqplugins/datetimepicker/ --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"
+        integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(".datetimepicker").datetimepicker({
+                format: 'Y-m-d H:i',
+                //autoclose: true,
+                minDate: 0,
+                yearStart: 2020,
+                yearEnd: 2040,
+                onChangeDateTime: function(dp, $input) {
+                    console.log($input.val());
+                    Livewire.emitTo('coupons', 'untilChanged', $input.val());
+                }
+            });
+
+        }); //jqReady
+    </script>
+
     <script>
         Livewire.on('deleteCoupon', couponId => {
             Swal.fire({
@@ -253,7 +294,6 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.emitTo('coupons', 'delete', couponId);
-
                     Swal.fire(
                         'Deleted!',
                         'Redirect has been deleted.',
@@ -261,6 +301,28 @@
                     )
                 }
             })
-        });
+        }); // deleteCoupon
+
+
+        Livewire.on('changeStatu', (couponId, action) => {
+            Swal.fire({
+                title: `Are you sure you want to ${action} this Coupon ?`,
+                //showDenyButton: true,
+                //denyButtonText: `Disable Coupon`,
+                showCancelButton: true,
+                confirmButtonText: `Yes, ${action}`,      
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emitTo('coupons', 'changeStatus', couponId, action);  
+                }
+            })
+        }); // changeStatus
     </script>
+@endpush
+
+@push('css')
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css"
+        integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endpush
