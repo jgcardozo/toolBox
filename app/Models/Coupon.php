@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\CouponDetail;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 class Coupon extends Model
@@ -48,6 +49,19 @@ class Coupon extends Model
     public function setLimitAttribute($value){
         $this->attributes['limit'] = str_replace(',','',$value);
     }
+
+
+    public function getTimesUsedAttribute()
+    {
+        return CouponDetail::where('coupon', $this->name)->count();
+    } 
+
+    public function setTimesUsedAttribute($value)
+    {
+        $this->attributes['times_used'] = $value;
+    }
+
+ 
 
     
 

@@ -44,8 +44,8 @@
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="available_until"></label>
-                            <input wire:model="available_until" type="text" class="form-control datetimepicker" id="available_until"
-                                placeholder="Available Until">
+                            <input wire:model="available_until" type="text" class="form-control datetimepicker"
+                                id="available_until" placeholder="Available Until">
                             @error('available_until')
                                 <span class="error text-danger">{{ $message }}</span>
                             @enderror
@@ -55,8 +55,7 @@
 
                     <div class="form-group">
                         <label for="description"></label>
-                        <textarea wire:model="description" class="form-control" id="description"
-                            placeholder="Description" rows="3"></textarea>
+                        <textarea wire:model="description" class="form-control" id="description" placeholder="Description" rows="3"></textarea>
                         @error('description')
                             <span class="error text-danger">{{ $message }}</span>
                         @enderror
@@ -80,10 +79,10 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" wire:click.prevent="cancel()" class="btn btn-dark"
-                    data-dismiss="modal"><i class="fas fa-solid fa-backward mr-2"></i>Close</button>
-                <button type="button" wire:click.prevent="update()" class="btn btn-primary"
-                    data-dismiss="modal">Save<i class="fa fa-sd-card ml-2"></i></button>
+                <button type="button" wire:click.prevent="cancel()" class="btn btn-dark" data-dismiss="modal"><i
+                        class="fas fa-solid fa-backward mr-2"></i>Close</button>
+                <button type="button" wire:click.prevent="update()" class="btn btn-primary" data-dismiss="modal">Save<i
+                        class="fa fa-sd-card ml-2"></i></button>
             </div>
         </div>
     </div>

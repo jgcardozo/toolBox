@@ -22,8 +22,8 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="discount"></label>
-                            <input wire:model.debounce.500ms="discount" type="text" class="form-control" id="discount"
-                                placeholder="Discount"  >
+                            <input wire:model="discount" type="text" class="form-control" id="discount"
+                                placeholder="Discount">
                             @error('discount')
                                 <span class="error text-danger">{{ $message }}</span>
                             @enderror

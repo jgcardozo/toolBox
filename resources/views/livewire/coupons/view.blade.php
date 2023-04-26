@@ -38,13 +38,14 @@
                         <option value="all" selected>All</option>
                         <option value="available">Availables</option>
                         <option value="not_ava">Not availables</option>
-                    </select>{{ $list }} {{ $status }}
+                    </select>
                 </div>
             </div>
 
             <div class="form-group col-sm-2 text-left">
                 @include('livewire.coupons.create')
                 @include('livewire.coupons.update')
+                @include('livewire.coupons.detail')
                 <div class="btn btn-sm btn-info" data-toggle="modal" data-target="#createDataModal">
                     New Coupon <i class="fa fa-ticket ml-2"></i>
                 </div>
@@ -192,7 +193,17 @@
                                             </div>
                                         </td>
                                         <td class="px-2 py-2 whitespace-nowrap">
-                                            <div class="text-sm">#used</div>
+                                            <div class="text-sm">
+                                                @if ($coupon->times_used)
+                                                    <a data-toggle="modal" data-target="#detailModal"
+                                                        wire:click="couponDetail({{ $coupon }})"
+                                                        style="cursor:pointer;">
+                                                        {{ $coupon->times_used }}
+                                                    </a>
+                                                @else
+                                                    0
+                                                @endif
+                                            </div>
                                         </td>
                                         <td class="px-2 py-2 whitespace-nowrap">
                                             <div class="text-sm">{{ $coupon->limit }}</div>
@@ -208,12 +219,7 @@
                                         </td>
 
                                         <td class="d-flex justify-content-center">
-                                            <div class="item">
-                                                <a class="btn btn-sm btn-dark">
-                                                    <i class="fas fa-file fa-xs"></i>
-                                                </a>
-                                            </div>
-                                            <div class="item mx-1">
+                                            <div class="item mr-1">
                                                 {{-- @livewire('coupons.edit-coupon', ['coupon' => $coupon], key($coupon->id)) --}}
                                                 <a data-toggle="modal" data-target="#updateModal"
                                                     class="btn btn-sm btn-info"
@@ -240,7 +246,7 @@
                             </div>
                         @endif
                     @else
-                        <div class="d-flex justify-content-center mb-3">There is not Records</div>
+                        <div class="d-flex justify-content-center mb-3">There are not Records</div>
                     @endif
                 </div><!-- col -->
             </div><!-- row -->
@@ -249,8 +255,6 @@
     </div> <!-- d-flex -->
 
 </div> <!-- template -->
-
-
 
 
 
@@ -310,14 +314,15 @@
                 //showDenyButton: true,
                 //denyButtonText: `Disable Coupon`,
                 showCancelButton: true,
-                confirmButtonText: `Yes, ${action}`,      
+                confirmButtonText: `Yes, ${action}`,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Livewire.emitTo('coupons', 'changeStatus', couponId, action);  
+                    Livewire.emitTo('coupons', 'changeStatus', couponId, action);
                 }
             })
         }); // changeStatus
     </script>
+
 @endpush
 
 @push('css')

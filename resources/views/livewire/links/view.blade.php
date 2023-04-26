@@ -94,7 +94,7 @@
 
     @empty
         <div class="alert alert-light my-2" role="alert" style="background-color: #fff;">
-            There's any Link so far !
+            No Links so far !
         </div>
     @endforelse
 

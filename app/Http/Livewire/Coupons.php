@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Coupon;
 use Livewire\Component;
+use App\Models\CouponDetail;
 use Livewire\WithPagination;
 
 class Coupons extends Component
@@ -12,15 +13,15 @@ class Coupons extends Component
 
 	protected $paginationTheme = 'bootstrap';
 	public $selected_id, $keyWord, $name, $description, $actived, $deleted, $limit, $discount, $type, $available_until;
-	
+
 	public $updateMode = false;
 	public $sort = 'id';
 	public $direction = 'desc';
 	public $cant = '10';
 	public $readyToload = true; //false //simular un lazyloading
 	public $list = 'all';
+	public $couponDetail = [];
 
-	public $status;
 
 	protected $queryString = [
 		'cant' => ['except' => '10'],
@@ -31,37 +32,37 @@ class Coupons extends Component
 
 	protected $listeners = ['render', 'delete', 'untilChanged', 'changeStatus'];
 
+
+
+
+
 	public function render()
 	{
+		$keyWord = '%' . $this->keyWord . '%';
 
-		//$query = [['activated', '=', '1'], ['subscribed', '<>', '1']];
-		// https://stackoverflow.com/questions/16815551/how-to-do-this-in-laravel-subquery-where-in
-		// juan aca voy
-		// falta lista all, available
-		// report of uses con cupon_detail
-		// modulo de ver el detail en el numero de uses
-		
 		if ($this->list == "all") {
-			$this->status = 1;
+			$actived = [0, 1];
 		}
 		if ($this->list == "not_ava") {
-			$this->status = 0;
+			$actived = [0];
 		}
 		if ($this->list == "available") {
-			$this->status = 1;	
-		}
+			$actived = [1];
+		} 
 
-		$keyWord = '%' . $this->keyWord . '%';
-		return view('livewire.coupons.view', [
-			'coupons' => Coupon::
-				whereIn('actived', [1,0])
-				//whereIn('actived', $this->status)
-				//->orWhere('name', 'LIKE', $keyWord)
-				//->orWhere('description', 'LIKE', $keyWord)
-				
-				->orderBy($this->sort, $this->direction)
-				->paginate($this->cant)
-		]);
+		$coupons = Coupon::where(function ($query) use ($keyWord) {
+			$query->where('name', 'LIKE', $keyWord)
+				->orWhere('description', 'LIKE', $keyWord);
+		})
+			->whereIn('actived', $actived)
+			->orderBy($this->sort, $this->direction)
+			->paginate($this->cant);
+
+		$couponDetail = $this->couponDetail;
+
+		return view('livewire.coupons.view', compact('coupons', 'couponDetail'));
+
+
 
 	} //render
 
@@ -132,8 +133,6 @@ class Coupons extends Component
 			$record->update([
 				'name' => $this->name,
 				'description' => $this->description,
-				//'actived' => $this-> actived,
-				//'deleted' => $this-> deleted,
 				'limit' => $this->limit,
 				'discount' => $this->discount,
 				'type' => $this->type,
@@ -183,20 +182,31 @@ class Coupons extends Component
 	}
 
 
-	public function untilChanged($datetime){
+	public function untilChanged($datetime)
+	{
 		$this->available_until = $datetime;
 	}
 
 
-	public function updatedDiscount(){
-		$num = str_replace([',','.'],'',$this->discount);
-		$this->discount = number_format($num, 0);
+
+	public function updatedDiscount($value)
+	{
+		$value = preg_replace('/[^0-9]/', '', $value);
+		if ($value) {
+			$this->discount = number_format($value, 0);
+		} else {
+			$this->discount = $value;
+		}
 	}
 
-	public function updatedLimit()
+	public function updatedLimit($value)
 	{
-		$num = str_replace([',', '.'], '', $this->limit);
-		$this->limit = number_format($num, 0);
+		$value = preg_replace('/[^0-9]/', '', $value);
+		if ($value) {
+			$this->limit = number_format($value, 0);
+		} else {
+			$this->limit = $value;
+		}
 	}
 
 	public function changeStatus(Coupon $coupon, $action)
@@ -207,8 +217,17 @@ class Coupons extends Component
 			$coupon->actived = 0;
 		}
 		$coupon->save();
-		 
-	}// changeStatus
+
+	} // changeStatus
+
+	public function couponDetail(Coupon $coupon)
+	{
+		$this->couponDetail = CouponDetail::where('coupon', $coupon->name)->get();
+	}
+
+
+
+
 
 
 } //class
