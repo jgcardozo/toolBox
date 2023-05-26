@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImagesTable extends Migration
+class CreateCouponDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('coupon_details', function (Blueprint $table) {
             $table->id();
-            $table->string('url');
-            $table->string('description')->nullable();
-            $table->unsignedBigInteger('imageable_id');
-            $table->string('imageable_type');
-            //$table->primary(['imageable_id', 'imageable_type']);
-
+            $table->string('coupon',30);
+            $table->unsignedBigInteger('affiliate_id')->nullable();
+            $table->text('url')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('coupon_details');
     }
 }

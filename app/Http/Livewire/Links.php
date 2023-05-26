@@ -80,7 +80,7 @@ class Links extends Component
         $this->myftp = new FtpServers();
         $this->myftp->crudAlias($link->alias, $link->long_url, $link->domain_id, 'delete');
         $this->myftp->close();
-        $link->delete();        
+        $link->delete();    
     }
 
 } //class

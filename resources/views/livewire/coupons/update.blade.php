@@ -15,7 +15,7 @@
 
                     <div class="row">
                         <div class="form-group col-sm-6">
-                            <label for="name"></label>
+                            <label for="name">Coupon</label>
                             <input wire:model="name" type="text" class="form-control" id="name"
                                 placeholder="Name">
                             @error('name')
@@ -23,7 +23,7 @@
                             @enderror
                         </div>
                         <div class="form-group col-sm-6">
-                            <label for="discount"></label>
+                            <label for="discount">Discount (usd)</label>
                             <input wire:model="discount" type="text" class="form-control" id="discount"
                                 placeholder="Discount">
                             @error('discount')
@@ -35,7 +35,7 @@
 
                     <div class="row">
                         <div class="form-group col-sm-6">
-                            <label for="limit"></label>
+                            <label for="limit">Limit</label>
                             <input wire:model="limit" type="text" class="form-control" id="limit"
                                 placeholder="Limit">
                             @error('limit')
@@ -43,7 +43,7 @@
                             @enderror
                         </div>
                         <div class="form-group col-sm-6">
-                            <label for="available_until"></label>
+                            <label for="available_until">Available Until</label>
                             <input wire:model="available_until" type="text" class="form-control datetimepicker"
                                 id="available_until" placeholder="Available Until">
                             @error('available_until')
@@ -54,33 +54,18 @@
 
 
                     <div class="form-group">
-                        <label for="description"></label>
+                        <label for="description">Description</label>
                         <textarea wire:model="description" class="form-control" id="description" placeholder="Description" rows="3"></textarea>
                         @error('description')
                             <span class="error text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    {{--       <div class="form-group">
-                        <label for="actived"></label>
-                        <input wire:model="actived" type="text" class="form-control" id="actived"
-                            placeholder="Actived">
-                        @error('actived')
-                            <span class="error text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="deleted"></label>
-                        <input wire:model="deleted" type="text" class="form-control" id="deleted"
-                            placeholder="Deleted">
-                        @error('deleted')
-                            <span class="error text-danger">{{ $message }}</span>
-                        @enderror
-                    </div> --}}
+                 
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" wire:click.prevent="cancel()" class="btn btn-dark" data-dismiss="modal"><i
-                        class="fas fa-solid fa-backward mr-2"></i>Close</button>
+                        class="fas fa-solid fa-xmark-circle mr-2"></i>Close</button>
                 <button type="button" wire:click.prevent="update()" class="btn btn-primary" data-dismiss="modal">Save<i
                         class="fa fa-sd-card ml-2"></i></button>
             </div>

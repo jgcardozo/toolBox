@@ -355,12 +355,12 @@ return [
             'icon' => 'fas fa-fw fa-link',
             'can' => 'links.index',
         ],
-       /* [
+        [
             'text' => 'Close Pages',
-            'route' => 'closepages',
+            'route' => 'closepages.index',
             'icon' => 'fas fa-fw fa-door-open',
-            //'can' => 'links.index',
-        ], */
+            'can' => 'closepages.index',
+        ], 
         [
             'text' => 'Coupons',
             'route'  => 'coupons.index',

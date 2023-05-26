@@ -46,9 +46,11 @@
                 @include('livewire.coupons.create')
                 @include('livewire.coupons.update')
                 @include('livewire.coupons.detail')
-                <div class="btn btn-sm btn-info" data-toggle="modal" data-target="#createDataModal">
-                    New Coupon <i class="fa fa-ticket ml-2"></i>
-                </div>
+                @can('coupons.create')
+                    <div class="btn btn-sm btn-info" data-toggle="modal" data-target="#createDataModal">
+                        New Coupon <i class="fa fa-ticket ml-2"></i>
+                    </div>
+                @endcan
             </div>
         </div><!-- row -->
 
@@ -219,20 +221,24 @@
                                         </td>
 
                                         <td class="d-flex justify-content-center">
-                                            <div class="item mr-1">
-                                                {{-- @livewire('coupons.edit-coupon', ['coupon' => $coupon], key($coupon->id)) --}}
-                                                <a data-toggle="modal" data-target="#updateModal"
-                                                    class="btn btn-sm btn-info"
-                                                    wire:click="edit({{ $coupon->id }})"><i
-                                                        class="fa fa-pen fa-xs"></i>
-                                                </a>
-                                            </div>
-                                            <div class="item">
-                                                <a class="btn btn-sm btn-danger"
-                                                    wire:click="$emit('deleteCoupon', {{ $coupon->id }})">
-                                                    <i class="fas fa-trash fa-xs"></i>
-                                                </a>
-                                            </div>
+                                            @can('coupons.edit')
+                                                <div class="item mr-1">
+                                                    {{-- @livewire('coupons.edit-coupon', ['coupon' => $coupon], key($coupon->id)) --}}
+                                                    <a data-toggle="modal" data-target="#updateModal"
+                                                        class="btn btn-sm btn-info"
+                                                        wire:click="edit({{ $coupon }})"><i
+                                                            class="fa fa-pen fa-xs"></i>
+                                                    </a>
+                                                </div>
+                                            @endcan
+                                            @can('coupons.destroy')
+                                                <div class="item">
+                                                    <a class="btn btn-sm btn-danger"
+                                                        wire:click="$emit('deleteCoupon', {{ $coupon->id }})">
+                                                        <i class="fas fa-trash fa-xs"></i>
+                                                    </a>
+                                                </div>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach
@@ -322,7 +328,6 @@
             })
         }); // changeStatus
     </script>
-
 @endpush
 
 @push('css')

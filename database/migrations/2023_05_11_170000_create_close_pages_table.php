@@ -17,12 +17,13 @@ class CreateClosePagesTable extends Migration
             $table->id();
             $table->foreignId('domain_id')->references('id')->on('domains')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('url');
-            $table->string('alias', 20)->nullable();
-            $table->dateTime('close_time');
-            $table->bigInteger('close_timestamp');
-            $table->string('code_old');
-            $table->string('code_new');
+            $table->string('url_page');
+            $table->string('url_waitlist')->nullable();
+            $table->timestamp('close_at');
+            $table->string('timezone',30)->default('America/Chicago');
+            $table->boolean('done')->default(0);
+            $table->text('code_old')->nullable();
+            $table->text('code_new')->nullable();
             $table->timestamps();
         });
     }

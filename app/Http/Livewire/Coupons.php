@@ -6,10 +6,12 @@ use App\Models\Coupon;
 use Livewire\Component;
 use App\Models\CouponDetail;
 use Livewire\WithPagination;
+use App\Traits\AuthorizesRoleOrPermission;
 
 class Coupons extends Component
 {
 	use WithPagination;
+	use AuthorizesRoleOrPermission;
 
 	protected $paginationTheme = 'bootstrap';
 	public $selected_id, $keyWord, $name, $description, $actived, $deleted, $limit, $discount, $type, $available_until;
@@ -33,6 +35,11 @@ class Coupons extends Component
 	protected $listeners = ['render', 'delete', 'untilChanged', 'changeStatus'];
 
 
+
+	public function mount()
+	{
+		$this->authorizeRoleOrPermission('coupons.index');
+	}
 
 
 
@@ -61,8 +68,6 @@ class Coupons extends Component
 		$couponDetail = $this->couponDetail;
 
 		return view('livewire.coupons.view', compact('coupons', 'couponDetail'));
-
-
 
 	} //render
 
@@ -104,19 +109,19 @@ class Coupons extends Component
 		session()->flash('message', 'Coupon Successfully created.');
 	}
 
-	public function edit($id)
+	public function edit(Coupon $coupon)
 	{
-		$record = Coupon::findOrFail($id);
+		//$record = Coupon::findOrFail($id);
 
-		$this->selected_id = $id;
-		$this->name = $record->name;
-		$this->description = $record->description;
-		$this->actived = $record->actived;
-		$this->deleted = $record->deleted;
-		$this->limit = $record->limit;
-		$this->discount = $record->discount;
-		$this->type = $record->type;
-		$this->available_until = $record->available_until;
+		$this->selected_id = $coupon->id;
+		$this->name = $coupon->name;
+		$this->description = $coupon->description;
+		$this->actived = $coupon->actived;
+		$this->deleted = $coupon->deleted;
+		$this->limit = $coupon->limit;
+		$this->discount = $coupon->discount;
+		$this->type = $coupon->type;
+		$this->available_until = $coupon->available_until;
 
 		$this->updateMode = true;
 	}

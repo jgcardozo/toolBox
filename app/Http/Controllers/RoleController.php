@@ -34,7 +34,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|min:6|max:30',
+            'name' => 'required|min:5|max:30',
             'description' => 'required|min:10',
         ]);
       
@@ -54,7 +54,7 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $request->validate([
-            'name' => 'required|min:6|max:30',
+            'name' => 'required|min:5|max:30',
             'description' => 'required|min:10',
         ]);
         $role->update($request->only(['name', 'description']));

@@ -19,13 +19,11 @@ class DomainController extends Controller
 
 
     public function index()
-    {
-        $arrDomains = DB::select(DB::raw('select d.id, name, type, count(name) as cant from domains d
-                            join links l on d.id = l.domain_id 
-                            group by name, type, d.id'));
-
-        //$domains = Domain::hydrate($arrDomains);
-		$domains= Domain::all();
+    { 
+        $domains = Domain::select('domains.id', 'domains.name', 'domains.type', DB::raw('COALESCE(COUNT(links.id), 0) as cant'))
+            ->leftJoin('links', 'domains.id', '=', 'links.domain_id')
+            ->groupBy('domains.name', 'domains.type', 'domains.id')
+            ->get();       
         return view('domains.index', compact('domains'));
     }
 

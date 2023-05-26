@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Log;
-use App\Models\Link;
-use App\Models\Domain;
+use App\Traits\UrlValid;
 use App\Classes\FtpServers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Log;
+use App\Models\Link;
+use App\Models\Domain;
 
 class LinkController extends Controller
 {
-
+    use UrlValid;
     private $ftp;
 
     public function __construct(FtpServers $ftp)
@@ -23,23 +24,7 @@ class LinkController extends Controller
         $this->middleware('can:links.destroy')->only('destroy');
     }
 
-    private function urlValid($url)
-    {
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $data = curl_exec($ch);
-        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
 
-        if ($httpcode == 0 || $httpcode == 404) {
-            return false;
-        } else {
-            return true;
-        }
-
-    } //urlValid
 
     public function index()
     {
@@ -62,12 +47,9 @@ class LinkController extends Controller
             'alias' => 'required|min:2',
         ]);
 
-        //https://stackoverflow.com/questions/1239068/ping-site-and-return-result-in-php
-
         $fields = $request->only(['domain_id', 'long_url', 'alias', 'short_url']);
         $fields['user_id'] = Auth::user()->id;
         $fields['short_url'] = $request->short_url;
-
 
         if (!$this->urlValid($request->long_url)) {
             $message = "[$request->alias] redirect was not created because destinationUrl $request->long_url is not valid";

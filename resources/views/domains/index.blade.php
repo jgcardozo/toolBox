@@ -30,17 +30,20 @@
                             <th>#</th>
                             <th>Domain</th>
                             <th># Links</th>
+                            <th>ID</th>
                             <th>Type</th>
                             <th colspan="2">{{ __('actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
+                     
                         @forelse ($domains as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->cant }}</td>
                                 <td>{{ $item->type }}</td>
+                                <td>{{ $item->id }}</td>
                                 <td>
                                     @can('domains.edit')
                                         <a href="{{ route('domains.edit', $item) }}" class="btn btn-sm btn-info">

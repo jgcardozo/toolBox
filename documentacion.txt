@@ -34,3 +34,12 @@ CREATE TABLE `coupon_detail` (
   -- KEY `coupon` (`coupon`),
   -- CONSTRAINT `coupon_detail` FOREIGN KEY (`coupon`) REFERENCES `coupons` (`coupon`)
 )
+
+
+
+# laravel schedule and commands
+https://www.youtube.com/watch?v=wNrlpGlHIeg
+
+
+# inyeccion dependencias
+https://herminioheredia.com.mx/2019/06/19/domina-la-inyeccion-de-dependencias-de-laravel/

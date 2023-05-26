@@ -5,18 +5,23 @@ namespace App\Classes;
 use App\Classes\Eds;
 use App\Models\Link;
 use App\Models\Domain;
+use App\Traits\UrlValid;
+use App\Models\ClosePage;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\Storage;
 
 class FtpServers
 {
+    use UrlValid;
     private $typeServer, $conn, $domain_id, $login;
     private $workingDir = "/site/wwwroot/";
+    private $local_file;
 
 
     public function connect($domain_id)
     {
         extract(Domain::where('id', $domain_id)->first()->toArray());
-        $this->conn = ftp_ssl_connect($ftp_url) or die("Couldn't connect to $name trying to create in index");
+        $this->conn = ftp_ssl_connect($ftp_url) or die("Couldn't connect to $name ");
         $this->login = ftp_login($this->conn, $ftp_user, Eds::decryption($ftp_password));
         ftp_pasv($this->conn, true);
         ftp_chdir($this->conn, $this->workingDir);
@@ -30,10 +35,6 @@ class FtpServers
         ftp_close($this->conn);
     } // close connection
 
-    /*public function setDomain(int $domain_id)
-    {
-    $this->domain_id = $domain_id;
-    } */
 
     public function aliasExists($domain_id, $alias, $long_url)
     {
@@ -102,7 +103,7 @@ class FtpServers
             // https://hybridexpert.com/hyb-int-0423/wb-1-f-rg/v2/?test=erick  alias workshop
             $content = '<?php
             $params =  "/?".http_build_query($_GET);
-            $long_url = "'.$long_url.'";
+            $long_url = "' . $long_url . '";
             if(strlen($params)>2){
                 $long_url = $long_url . $params;
             }
@@ -191,22 +192,105 @@ class FtpServers
     } //crudAlias
 
 
+    public function closePage($page)
+    {
+        if ($this->urlValid($page->url_page)) {
+            $domain_name = Domain::where('id', $page->domain_id)->first()->name;
+            $url_page = str_ireplace(['http://', 'https://', $page->domain_name . '/'], '', $page->url_page);
+            $this->connect($page->domain_id);
+            $filename = "index.php";
+            $remote_file = $this->workingDir . $url_page . $filename;
+            $path_closepages = "ClosePages/$domain_name";
+            $local_file = Storage::disk('local')->path("$path_closepages/$filename");
+            if (!file_exists($path_closepages)) {
+                Storage::makeDirectory($path_closepages, 0777, true);
+            }
+            //juan-for-testing ftp_get($this->conn, $local_file, $remote_file, FTP_ASCII);
+            $default_waitlist = "https://quizfunnelworkshop.com/notify/";
+            $url_waitlist = isset($page->url_waitlist) && !empty($page->url_waitlist) ? $page->url_waitlist : $default_waitlist;
+            $this->$local_file = $local_file;
+            $this->deleteCode();
+
+            $codeAmount =
+                '<?php
+                if (isset($_GET["t"]) && $_GET["t"]=="y") {
+                    $amount = "1";
+                }else{
+                    $amount = "99";
+                }
+            ?>';
+            $codeClose = '<!--start-script-->
+            <?php
+                #redirect
+                if(!isset($_GET["test"])){
+                header("HTTP/1.1 302 Moved Temporarily");
+                header("' . $url_waitlist . '");
+                die();
+                }
+            #end-redirect
+            ?>
+            <!--end-script-->';
+            $allNewCode = $codeClose; // . PHP_EOL . $codeAmount;
+            $code_old = file_get_contents($local_file);
+            $code_new = $allNewCode . PHP_EOL . $code_old;
+            file_put_contents($local_file, $code_new);
+
+            $page->update([
+                'done' => 1,
+                'code_old' => $code_old,
+                'code_new' => $code_new
+            ]);
+
+            $texto = "son las : " . date('Y-m-d H:i:s') . " " . $url_waitlist . " pageid=" . $page->id;
+            Storage::append("comandos.txt", $texto);
+            /*
+            if (@ftp_put($this->conn, $remote_file, $local_file, FTP_ASCII)) { 
+                $page->update([
+                'done' => 1,
+                'code_old' => $code_old, 
+                'code_new' => $code_new
+            ]);
+            }//if ftp_put
+            */
+
+        } //if urlValid
+        return true;
+    } // closePage
+
+
+    public function deleteCode()
+    {
+        $content = file_get_contents($this->local_file);
+        $codeStartAt = strpos($content, '<!--start-script-->');
+        $codeEndAt = strrpos($content, '<!--end-script-->');
+        if ($codeStartAt !== false && $codeEndAt !== false) {
+            $codeSearched = substr($content, $codeStartAt, ($codeEndAt - $codeStartAt));
+            $newCode = str_replace($codeSearched . '<!--end-script-->', "", $content);
+            file_put_contents($this->local_file, $newCode);
+        }
+    } // deleteCode
+
+
+
+
+
 
     public function htproceso($domain_name)
-    {   dd("htproceso using $domain_name now disabled");
+    {
+        dd("htproceso using $domain_name now disabled");
         $filename = ".htaccess";
         $path = "htproceso/$filename"; //domain_name for real
         $local_file = Storage::disk('local')->path($path);
         //
         $filenameNew = "nuevo.htaccess";
-        $pathNew  = "htproceso/$filenameNew"; //domain_name for real
+        $pathNew = "htproceso/$filenameNew"; //domain_name for real
         //$pathFile = Storage::disk('local')->path($pathNew);
-        
+
         if (file_get_contents($local_file)) {
             $content = file($local_file);
-            $newArray = $arrCommented =  []; // 1035  # 974 # 396sin variaciones
+            $newArray = $arrCommented = []; // 1035  # 974 # 396sin variaciones
             foreach (Link::all() as $item) {
-                array_push($newArray, '/'.$item['alias']);
+                array_push($newArray, '/' . $item['alias']);
             }
             foreach ($content as $lineNum => $lineText) {
 
@@ -222,17 +306,17 @@ class FtpServers
                         ///studio-access  //ALTER TABLE links MODIFY alias VARCHAR(40) ;
                         if (!in_array($alias, $newArray)) {
                             array_push($newArray, $alias);
-                            $newRedirect = "";   
+                            $newRedirect = "";
                             $newRedirect = "Redirect 302 $alias $long_url";
                             Storage::disk('local')->append($pathNew, $newRedirect);
                             //save into tb.links
-                            $fields['domain_id'] = Domain::where('name', $domain_name)->first()->id; 
+                            $fields['domain_id'] = Domain::where('name', $domain_name)->first()->id;
                             $fields['user_id'] = 1;
                             $fields['alias'] = substr($alias, 1);
                             $fields['long_url'] = trim($long_url);
-                            $fields['short_url'] = trim("http://$domain_name".$alias);
+                            $fields['short_url'] = trim("http://$domain_name" . $alias);
                             $fields['created_at'] = "2023-01-01 23:39:53";
-                            $fields['updated_at'] = "2023-01-01 23:39:53";                     
+                            $fields['updated_at'] = "2023-01-01 23:39:53";
                             Link::create($fields);
                         } //sino existe ya el alias con sus variaciones, entonces lo crea
                     } //if piece2 exist
@@ -243,38 +327,15 @@ class FtpServers
                 }
             } //forEach
 
-            Storage::disk('local')->append($pathNew, PHP_EOL .PHP_EOL.PHP_EOL."# REDIRECTS DISABLED MANUALLY #############################". PHP_EOL);
+            Storage::disk('local')->append($pathNew, PHP_EOL . PHP_EOL . PHP_EOL . "# REDIRECTS DISABLED MANUALLY #############################" . PHP_EOL);
             foreach ($arrCommented as $item) {
                 Storage::disk('local')->append($pathNew, $item);
-            }// foreach commented
+            } // foreach commented
             dd($newArray);
         } //ftp_get or file_get_contents
 
 
     } //htproccess
-
-
-    public function closePage()
-    {
-
-        //$this->connect($domain_id);
-        //$domain_name = Domain::where('id', $domain_id)->first()->name;
-
-        if ($this->typeServer == 'Nginx') {
-
-        }
-
-        if ($this->typeServer == 'Apache') {
-
-        }
-
-    } // closePage
-
-
-
-
-
-
 
 
 } //class
