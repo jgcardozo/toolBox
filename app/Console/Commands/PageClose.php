@@ -7,10 +7,7 @@ use Carbon\Carbon;
 use App\Models\ClosePage;
 use App\Classes\FtpServers;
 use Illuminate\Console\Command;
-/*
-use App\Http\Livewire\ClosePages;
-use Illuminate\Support\Facades\Storage;
-*/
+
 
 class PageClose extends Command
 {

@@ -43,3 +43,7 @@ https://www.youtube.com/watch?v=wNrlpGlHIeg
 
 # inyeccion dependencias
 https://herminioheredia.com.mx/2019/06/19/domina-la-inyeccion-de-dependencias-de-laravel/
+
+
+#api
+https://www.youtube.com/watch?v=3ERq4KUsNEk

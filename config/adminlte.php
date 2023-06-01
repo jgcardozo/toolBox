@@ -356,18 +356,18 @@ return [
             'can' => 'links.index',
         ],
         [
-            'text' => 'Close Pages',
-            'route' => 'closepages.index',
-            'icon' => 'fas fa-fw fa-door-open',
-            'can' => 'closepages.index',
-        ], 
-        [
             'text' => 'Coupons',
             'route'  => 'coupons.index',
             'icon' => 'fas fa-fw fa-layer-group', //fa-layer-group
             'can' => 'coupons.index',
            // 'label' => 'Coming soon',
            // 'label_color' => 'info'
+        ],
+        [
+            'text' => 'Close Pages',
+            'route' => 'closepages.index',
+            'icon' => 'fas fa-fw fa-door-open',
+            'can' => 'closepages.index',
         ] 
 /*
         [

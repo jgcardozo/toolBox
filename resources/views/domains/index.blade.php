@@ -30,8 +30,8 @@
                             <th>#</th>
                             <th>Domain</th>
                             <th># Links</th>
-                            <th>ID</th>
                             <th>Type</th>
+                            <th>ID</th>
                             <th colspan="2">{{ __('actions') }}</th>
                         </tr>
                     </thead>

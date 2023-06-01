@@ -92,6 +92,8 @@ class Coupons extends Component
 		$this->validate([
 			'name' => 'required',
 			'available_until' => 'required',
+			'discount' => 'required',
+			'limit' => 'required',
 		]);
 
 		Coupon::create([
@@ -131,6 +133,8 @@ class Coupons extends Component
 		$this->validate([
 			'name' => 'required',
 			'available_until' => 'required',
+			'discount' => 'required',
+			'limit' => 'required',
 		]);
 
 		if ($this->selected_id) {
