@@ -42,13 +42,28 @@
                 </div>
             </div>
 
-            <div class="form-group col-sm-2 text-left">
+            <div class="form-group col-sm-2 mx-0 px-0">
                 @include('livewire.coupons.create')
                 @include('livewire.coupons.update')
                 @include('livewire.coupons.detail')
+                @include('livewire.coupons.import')
                 @can('coupons.create')
-                    <div class="btn btn-sm btn-info" data-toggle="modal" data-target="#createDataModal">
-                        New Coupon <i class="fa fa-ticket ml-2"></i>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-info" data-toggle="modal"
+                            data-target="#createDataModal">
+                            New Coupon <i class="fa fa-ticket ml-2"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <a data-toggle="modal" data-target="#importModal" class="text-white text-sm"
+                            style="cursor:pointer;">
+                            <ul class="dropdown-menu text-center bg-info py-1" role="menu">
+                                <li>
+                                    Bulk Import<i class="fa fa-file-excel ml-2"></i>
+                                </li>
+                            </ul>
+                        </a>
                     </div>
                 @endcan
             </div>
@@ -76,50 +91,51 @@
                             <thead class="bg-dark text-sm">
                                 <tr>
                                     <th class="align-middle" wire:click="order('id')">
-                                        <div class="d-flex align-items-center">
-                                            ID
-                                            @if ($sort == 'id')
-                                                @if ($direction == 'asc')
-                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2"></i>
-                                                @else
-                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2"></i>
-                                                @endif
-                                            @else
-                                                <i class="fas fa-sort fa-xs ml-2"></i>
-                                            @endif
-                                        </div>
+                                        ID
                                     </th>
                                     <th class="align-middle" wire:click="order('name')">
                                         <div class="d-flex align-items-center">
                                             COUPON
                                             @if ($sort == 'name')
                                                 @if ($direction == 'asc')
-                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2"></i>
+                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2 ilink"></i>
                                                 @else
-                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2"></i>
+                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2 ilink"></i>
                                                 @endif
                                             @else
-                                                <i class="fas fa-sort fa-xs ml-2"></i>
+                                                <i class="fas fa-sort fa-xs ml-2 ilink"></i>
                                             @endif
                                         </div>
                                     </th>
                                     <th class="align-middle">
                                         ACTIVE
                                     </th>
-                                    <th class="align-middle" wire:click="">
-                                        USED
+                                    <th class="align-middle" wire:click="order('times_used')">
+
+                                        <div class="d-flex align-items-center">
+                                            USED
+                                            @if ($sort == 'times_used')
+                                                @if ($direction == 'asc')
+                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2 ilink"></i>
+                                                @else
+                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2 ilink"></i>
+                                                @endif
+                                            @else
+                                                <i class="fas fa-sort fa-xs ml-2 ilink"></i>
+                                            @endif
+                                        </div>
                                     </th>
                                     <th class="align-middle" wire:click="order('limit')">
                                         <div class="d-flex align-items-center">
                                             LIMIT
                                             @if ($sort == 'limit')
                                                 @if ($direction == 'asc')
-                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2"></i>
+                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2 ilink"></i>
                                                 @else
-                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2"></i>
+                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2 ilink"></i>
                                                 @endif
                                             @else
-                                                <i class="fas fa-sort fa-xs ml-2"></i>
+                                                <i class="fas fa-sort fa-xs ml-2 ilink"></i>
                                             @endif
                                         </div>
                                     </th>
@@ -128,12 +144,12 @@
                                             DESCRIPTION
                                             @if ($sort == 'description')
                                                 @if ($direction == 'asc')
-                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2"></i>
+                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2 ilink"></i>
                                                 @else
-                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2"></i>
+                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2 ilink"></i>
                                                 @endif
                                             @else
-                                                <i class="fas fa-sort fa-xs ml-2"></i>
+                                                <i class="fas fa-sort fa-xs ml-2 ilink"></i>
                                             @endif
                                         </div>
                                     </th>
@@ -142,12 +158,12 @@
                                             DISCOUNT
                                             @if ($sort == 'discount')
                                                 @if ($direction == 'asc')
-                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2"></i>
+                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2 ilink"></i>
                                                 @else
-                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2"></i>
+                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2 ilink"></i>
                                                 @endif
                                             @else
-                                                <i class="fas fa-sort float-right fa-xs ml-2"></i>
+                                                <i class="fas fa-sort float-right fa-xs ml-2 ilink"></i>
                                             @endif
                                         </div>
                                     </th>
@@ -156,12 +172,12 @@
                                             AVAILABLE UNTIL
                                             @if ($sort == 'available_until')
                                                 @if ($direction == 'asc')
-                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2"></i>
+                                                    <i class="fas fa-sort-alpha-up-alt fa-xs ml-2 ilink"></i>
                                                 @else
-                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2"></i>
+                                                    <i class="fas fa-sort-alpha-down-alt fa-xs ml-2 ilink"></i>
                                                 @endif
                                             @else
-                                                <i class="fas fa-sort fa-xs ml-2"></i>
+                                                <i class="fas fa-sort fa-xs ml-2 ilink"></i>
                                             @endif
                                         </div>
                                     </th>
@@ -174,9 +190,12 @@
                             </thead>
                             <tbody class="">
                                 @foreach ($coupons as $coupon)
+                                    @php
+                                        $consecutive = ($coupons->currentPage() - 1) * $coupons->perPage() + $loop->index + 1;
+                                    @endphp
                                     <tr>
                                         <td class="px-2 py-2 whitespace-nowrap">
-                                            <div class="text-sm">{{ $coupon->id }}</div>
+                                            <div class="text-sm">{{ $consecutive }}</div>
                                         </td>
                                         <td class="px-2 py-2 whitespace-nowrap">
                                             <div class="text-sm">{{ $coupon->name }}</div>
@@ -186,11 +205,11 @@
                                             <div class="text-sm d-flex justify-content-center align-items-center"
                                                 style="height: 30px;">
                                                 @if ($coupon->actived)
-                                                    <i class="fas fa-circle-check" style="color:green; cursor:pointer"
-                                                        wire:click="$emit('changeStatu', {{ $coupon->id }} , 'disable')"></i>
+                                                    <i class="fas fa-circle-check" style="color:green;"
+                                                        wire:click="$emit('changeStatuJuan', {{ $coupon->id }} , 'disable')"></i>
                                                 @else
-                                                    <i class="fas fa-circle-xmark" style="color:red; cursor:pointer"
-                                                        wire:click="$emit('changeStatu', {{ $coupon->id }} , 'enable')"></i>
+                                                    <i class="fas fa-circle-xmark" style="color:red;"
+                                                        wire:click="$emit('changeStatuJuan', {{ $coupon->id }} , 'enable')"></i>
                                                 @endif
                                             </div>
                                         </td>
@@ -200,7 +219,7 @@
                                                     <a data-toggle="modal" data-target="#detailModal"
                                                         wire:click="couponDetail({{ $coupon }})"
                                                         style="cursor:pointer;">
-                                                        {{ $coupon->times_used }}
+                                                        {{ number_format($coupon->times_used, 0) }}
                                                     </a>
                                                 @else
                                                     0
@@ -233,10 +252,17 @@
                                             @endcan
                                             @can('coupons.destroy')
                                                 <div class="item">
-                                                    <a class="btn btn-sm btn-danger"
-                                                        wire:click="$emit('deleteCoupon', {{ $coupon->id }})">
-                                                        <i class="fas fa-trash fa-xs"></i>
-                                                    </a>
+                                                    @if ($coupon->deleted)
+                                                        <a class="btn btn-sm btn-dark"
+                                                            wire:click="$emit('changeStatu', {{ $coupon->id }} , 'restore')">
+                                                            <i class="fas fa-circle-check fa-xs"></i>
+                                                        </a>
+                                                    @else
+                                                        <a class="btn btn-sm btn-danger"
+                                                            wire:click="$emit('deleteCoupon', {{ $coupon->id }})">
+                                                            <i class="fas fa-trash fa-xs"></i>
+                                                        </a>
+                                                    @endif
                                                 </div>
                                             @endcan
                                         </td>
@@ -246,8 +272,9 @@
                             </tbody>
                         </table>
 
+
                         @if ($coupons->hasPages())
-                            <div class="px-6 py-3">
+                            <div class="mx-2 px-2 py-2">
                                 {{ $coupons->links() }}
                             </div>
                         @endif
@@ -294,8 +321,8 @@
     <script>
         Livewire.on('deleteCoupon', couponId => {
             Swal.fire({
-                title: 'Are you sure you want to delete this Redirect ?',
-                text: "You won't be able to revert this!",
+                title: 'Are you sure you want to deactivate this Coupon ?',
+                text: "If you deactivate the coupon, it cannot be used at Funnels",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
@@ -305,8 +332,8 @@
                 if (result.isConfirmed) {
                     Livewire.emitTo('coupons', 'delete', couponId);
                     Swal.fire(
-                        'Deleted!',
-                        'Redirect has been deleted.',
+                        'Deactivated!',
+                        'Coupon has been deactivated.',
                         'success'
                     )
                 }
@@ -317,8 +344,6 @@
         Livewire.on('changeStatu', (couponId, action) => {
             Swal.fire({
                 title: `Are you sure you want to ${action} this Coupon ?`,
-                //showDenyButton: true,
-                //denyButtonText: `Disable Coupon`,
                 showCancelButton: true,
                 confirmButtonText: `Yes, ${action}`,
             }).then((result) => {
@@ -327,6 +352,19 @@
                 }
             })
         }); // changeStatus
+
+        Livewire.on('closeModal', function() {
+            $('#createDataModal').modal('hide');
+        });
+
+        Livewire.on('closeCouponDetail', function() {
+            $('#detailModal').modal('hide');
+        });
+
+        Livewire.on('closeCouponImport', function() {
+            $('#importModal').modal('hide');
+            $('#excel_file').val('');
+        });
     </script>
 @endpush
 
@@ -335,4 +373,27 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css"
         integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        .ilink {
+            cursor: pointer;
+        }
+
+        /* cupon_details modal */
+        .table-wrapper {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .table-wrapper table {
+            width: 100%;
+        }
+
+        .table-wrapper thead {
+            position: sticky;
+            top: 0;
+            background-color: #343a40;
+            color: #fff;
+        }
+    </style>
 @endpush

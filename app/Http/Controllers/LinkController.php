@@ -28,7 +28,7 @@ class LinkController extends Controller
 
     public function index()
     {
-        $logs = Log::where('logable_type', 'App\Models\Link')->get();;
+        $logs = Log::where('logable_type', 'App\Models\Link')->get();
         return view('livewire.links.index', compact('logs'));
     } //index
 
@@ -60,8 +60,17 @@ class LinkController extends Controller
             $message = "[$request->alias] redirect was not created because already exists";
         } else {
             $this->ftp->crudAlias($request->alias, $request->long_url, $request->domain_id, 'create');
-            Link::create($fields);
+            $link = Link::create($fields);
             $message = 'created successfully';
+            //
+            $log = new Log();
+            $log['action'] = 'created';
+            $log['user_id'] = $fields['user_id'];
+            $log['keyword'] = Domain::where('id', $link->domain_id)->first()->name.'/'.strtolower(trim($link->alias));
+            $log['json_old'] = $link->long_url;
+            $log->logable()->associate($link);
+            $log->save();
+
         }
         $this->ftp->close();
         return redirect()->route('links.index')->with('info', $message);
@@ -92,9 +101,9 @@ class LinkController extends Controller
                 $log = new Log();
                 $log['action'] = 'updated';
                 $log['user_id'] = $fields['user_id'];
-                $log['keyword'] = strtolower(trim($request->alias));
-                $log['json_old'] = "LongUrl: $link->long_url";
-                $log['json_new'] = "LongUrl: $request->long_url";
+                $log['keyword'] = Domain::where('id', $link->domain_id)->first()->name . '/' .strtolower(trim($request->alias));
+                $log['json_old'] = $link->long_url;
+                $log['json_new'] = $request->long_url;
                 $log->logable()->associate($link);
                 $log->save();
 

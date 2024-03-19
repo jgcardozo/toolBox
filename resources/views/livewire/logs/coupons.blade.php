@@ -24,10 +24,10 @@ https://decodecms.com/refrescar-los-estilos-css-almacenados-en-el-navegador-de-u
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Action</th>
-                    <th scope="col">Domain/Alias</th>
+                    <th scope="col">Coupon-Name</th>
                     <th scope="col">User</th>
-                    <th scope="col">Destiny-Prev</th>
-                    <th scope="col">Destiny-Now</th>
+                    <th scope="col">Info-Prev</th>
+                    <th scope="col">Info-Now</th>
                     <th scope="col">Date</th>
                 </tr>
             </thead>
@@ -38,8 +38,8 @@ https://decodecms.com/refrescar-los-estilos-css-almacenados-en-el-navegador-de-u
                         <td>{{ ucfirst($item->action) }}</td>
                         <td>{{ $item->keyword }}</td>
                         <td>{{ $item->user_name }}</td>
-                        <td>{{ $item->json_old }}</td>
-                        <td>{{ $item->json_new }}</td>
+                        <td>{!! nl2br($item->json_old) !!}</td>
+                        <td>{!! nl2br($item->json_new) !!}</td>
                         <td>{{ $item->created_at }}</td>
                     </tr>
                 @endforeach

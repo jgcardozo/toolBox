@@ -28,7 +28,9 @@ class UserController extends Controller
         $pass = bcrypt('yuae96+yXS8A'); //heba 
         $pass = bcrypt('WFJ89HrH8@T+'); //suzane
         */
-        //dd($pass);
+       // $pass = bcrypt('<v8B-zqj$6DZ'); //tracy
+       // $pass = bcrypt('n@LK?[2]^kyZ'); //meghan
+       // dd($pass);
         return view('livewire.users.index');
     }//index
 

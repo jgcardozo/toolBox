@@ -19,11 +19,14 @@ class Coupon extends Model
         return Carbon::parse($value)->format('Y-m-d H:i'); 
     }
 
+    public function getUpdatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d H:i');
+    }
 
     public function setAvailableUntilAttribute($value)
     {
         $this->attributes['available_until'] = Carbon::parse($value)->format('Y-m-d H:i');
-        //return Carbon::parse($value)->format('Y-m-d H:i');
     }
 
     public function getAvailableUntilAttribute($value){

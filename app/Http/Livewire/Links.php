@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Log;
 use App\Models\Link;
+use App\Models\Domain;
 use Livewire\Component;
 use App\Classes\FtpServers;
 use Livewire\WithPagination;
@@ -72,11 +73,11 @@ class Links extends Component
         $log = new Log();
         $log['action'] = 'deleted';
         $log['user_id'] = auth()->user()->id;
-        $log['keyword'] = strtolower(trim($link->alias));
-        $log['json_old'] = "LongUrl: $link->long_url";
+        $log['keyword'] = Domain::where('id', $link->domain_id)->first()->name . '/' .strtolower(trim($link->alias));
+        $log['json_old'] = $link->long_url;
         $log->logable()->associate($link);
         $log->save();
-
+        //
         $this->myftp = new FtpServers();
         $this->myftp->crudAlias($link->alias, $link->long_url, $link->domain_id, 'delete');
         $this->myftp->close();

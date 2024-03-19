@@ -16,10 +16,12 @@ class CouponDetail extends Model
         return Carbon::parse($value)->format('Y-m-d H:i');
     }
 
-  /*   public function setCreatedAt($value)
+    public function getUpdatedAtAttribute($value)
     {
-        $this->attributes['created_at'] = Carbon::;
-    } */
+        return Carbon::parse($value)->format('Y-m-d H:i');
+    }
+
+ 
 
 
 

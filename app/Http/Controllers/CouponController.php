@@ -34,11 +34,13 @@ class CouponController extends Controller
     public function couponCount(Request $request)
     {
         $data = $request->json()->all();
+        $email = isset($data['email']) ? $data['email'] : null ;
         try {
             CouponDetail::create([
                 'coupon' => $data['coupon'],
                 'url' => $data['url'],
-                'affiliate_id' => $data['affiliate_id']
+                'affiliate_id' => $data['affiliate_id'],
+                'affiliate' => $email
             ]);
             $response = ["status" => 200, "statusText" => "Coupon Successfully Counted."];
         } catch (QueryException $e) {

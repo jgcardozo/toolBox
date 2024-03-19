@@ -64,9 +64,9 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" wire:click.prevent="cancel()" class="btn btn-dark" data-dismiss="modal"><i
+                <button type="button" wire:click.prevent="cancel()" class="btn btn-sm btn-dark" data-dismiss="modal"><i
                         class="fas fa-solid fa-xmark-circle mr-2"></i>Close</button>
-                <button type="button" wire:click.prevent="update()" class="btn btn-primary" data-dismiss="modal">Save<i
+                <button type="button" wire:click.prevent="update()" class="btn btn-sm btn-info" data-dismiss="modal">Save<i
                         class="fa fa-sd-card ml-2"></i></button>
             </div>
         </div>

@@ -7,6 +7,7 @@ use App\Models\Link;
 use App\Models\Domain;
 use App\Traits\UrlValid;
 use App\Models\ClosePage;
+use Illuminate\Support\Facades\Log;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\Storage;
 
@@ -90,6 +91,10 @@ class FtpServers
     {
         $this->connect($domain_id);
         $domain_name = Domain::where('id', $domain_id)->first()->name;
+        $alias = str_replace('/', '', trim($alias));
+        $long_url = rtrim(trim($long_url), '/');
+
+        //dd($long_url, $alias);
 
         if ($this->typeServer == 'Nginx') {
             $filename = "index.php";
@@ -133,6 +138,7 @@ class FtpServers
             $pathApacheStage = "Apache/area-staging/$domain_name/$filename";
             $local_file = Storage::disk('local')->path($pathApacheStage);
             $remote_file = $this->workingDir . $filename;
+            $setFileToStaging = ftp_get($this->conn, $local_file, $remote_file, FTP_ASCII);
 
             //backupStart
             $backup_folder = "Apache/" . $domain_name;
@@ -167,7 +173,8 @@ class FtpServers
                     $arrReplace = "";
                 }
                 if ($action == 'update') {
-                    $current_long_url = Link::where('alias', strtolower($alias))->first()->long_url;
+                    $current_long_url = Link::where('domain_id', $domain_id)->where('alias', strtolower($alias))->first()->long_url;
+                    //dd($current_long_url);
                     $arrSearch = [
                         "Redirect 302 /" . strtolower($alias) . " $current_long_url",
                         "Redirect 302 /" . strtoupper($alias) . " $current_long_url",
@@ -181,11 +188,12 @@ class FtpServers
                 }
 
                 $content = Storage::disk('local')->get($pathApacheStage);
-                if (ftp_get($this->conn, $local_file, $remote_file, FTP_ASCII)) {
+                if ($setFileToStaging) {
                     $newContent = str_replace($arrSearch, $arrReplace, $content);
                     Storage::disk('local')->put($pathApacheStage, $newContent);
                 }
             } //actionUpdateDelete
+            //dd($arrSearch, $arrReplace);
             @ftp_put($this->conn, $remote_file, $local_file, FTP_ASCII);
         } //apacheCases
 
@@ -336,6 +344,51 @@ class FtpServers
 
 
     } //htproccess
+
+
+
+    public function webinarListJson($domain_id)
+    {
+        $this->connect($domain_id);
+        $list = str_replace($this->workingDir . "libraries/", '', ftp_nlist($this->conn, $this->workingDir . "libraries/"));
+        $jsonFiles = array_filter($list, function ($file) {
+            return pathinfo($file, PATHINFO_EXTENSION) === 'json';
+        });
+        return $jsonFiles;
+    } //webinarListJson
+
+    public function webinarFile($domain_id, $filename, $action, $newJson = null)
+    {
+        $this->connect($domain_id);
+        $domain_name = Domain::where('id', $domain_id)->first()->name;
+        $remote_file = $this->workingDir . "libraries/" . $filename;
+        $pathWebinarStage = "Webinars/$domain_name";
+        $local_file = Storage::disk('local')->path("$pathWebinarStage/$filename");
+
+        if ($action == 'get') {
+            if (!file_exists($pathWebinarStage)) {
+                Storage::makeDirectory($pathWebinarStage, 0777, true);
+            }
+            if (ftp_get($this->conn, $local_file, $remote_file, FTP_ASCII)) {
+                $jsonData = file_get_contents($local_file);
+                $data = json_decode($jsonData);
+                if (json_last_error() === JSON_ERROR_NONE) { //check if any error
+                    return $data;
+                } else {
+                    $errorMessage = "Error decodificando JSON: " . json_last_error_msg();
+                    Log::channel('webinar')->error($errorMessage);
+                }
+            } //ftp_get
+        } // if $action=='get'
+
+        if ($action == 'put') {
+            //dd("desdeFTP;",$newJson);
+            file_put_contents($local_file, $newJson);
+            @ftp_put($this->conn, $remote_file, $local_file, FTP_ASCII);
+        }
+
+    } //webinarFile
+
 
 
 } //class

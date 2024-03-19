@@ -23,7 +23,7 @@ class CreateCouponsTable extends Migration
             $table->mediumInteger('limit')->nullable();
             $table->mediumInteger('discount')->nullable();
             $table->string('type', 100)->nullable();
-            $table->timestamp('available_until')->default(Carbon::now()->addYear());
+            $table->timestamp('available_until')->default(Carbon::now()->addMonth()->setTime(23, 59)->format('Y-m-d H:i'));
             //$table->unsignedBigInteger('coupondetail_id');
             $table->timestamps();
         });

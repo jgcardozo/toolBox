@@ -18,10 +18,6 @@ class Log extends Model
 
 
 
-
-
-
-
     public function getUserNameAttribute()
     {
         return User::where('id', $this->user_id)->first()->name;

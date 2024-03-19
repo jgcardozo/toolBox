@@ -29,12 +29,14 @@ class Link extends Model
 
     public function setAliasAttribute($value)
     {
-        $this->attributes['alias'] = trim($value);
+        $replacements = ["/"];
+        $this->attributes['alias'] = str_replace($replacements,'',trim($value));
     }
 
     public function setLongUrlAttribute($value)
     {
-        $this->attributes['long_url'] = trim($value);
+        $this->attributes['long_url'] = rtrim(trim($value), '/');
+        //$this->attributes['long_url'] = trim($value);
     }
 
     public function setShortUrlAttribute($value)

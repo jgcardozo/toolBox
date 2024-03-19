@@ -11,7 +11,7 @@
         @endcan
 
         @if (count($logs) > 0)
-            <a href="{{ route('log.type', 'link') }}" class="btn btn-sm btn-dark float-right mx-1" target="_blank">
+            <a href="{{ route('log.type', 'Link') }}" class="btn btn-sm btn-dark float-right mx-1" target="_blank">
                 <i class="fas fa-file mr-2"></i>Log Links
             </a>
         @endif

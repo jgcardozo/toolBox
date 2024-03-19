@@ -64,8 +64,9 @@ return [
     */
 
     'logo' => '<b>ASK</b> Method',
-    'logo_img' => 'img/ask-logo-black.svg',//'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image', //img-circle elevation-3
+    'logo_img' => 'img/ask-logo-black.svg', //'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img_class' => 'brand-image',
+    //img-circle elevation-3
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => 'AskMethod Logo',
@@ -86,7 +87,8 @@ return [
     'auth_logo' => [
         'enabled' => false,
         'img' => [
-            'path' => 'img/ask-logo-black.svg', //'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'img/ask-logo-black.svg',
+            //'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'Auth Logo',
             'class' => '',
             'width' => 50,
@@ -109,7 +111,8 @@ return [
     'preloader' => [
         'enabled' => true,
         'img' => [
-            'path' => 'img/ask-logo.png', //'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'img/ask-logo.png',
+            //'vendor/adminlte/dist/img/AdminLTELogo.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 70,
@@ -311,7 +314,7 @@ return [
 
         [
             'text' => 'dashboard',
-            'route'  => 'dashboard',
+            'route' => 'dashboard',
             'icon' => 'fas fa-fw fa-home',
             //'label' => 'Home',
             //'label_color' => 'success'
@@ -319,119 +322,126 @@ return [
         [
             'text' => 'users',
             'icon' => 'fas fa-fw fa-user-tie',
-            'can'  => 'users.settings',
+            'can' => 'users.settings',
             'submenu' => [
                 [
-                    'text'  => 'users',
+                    'text' => 'users',
                     'route' => 'users.index',
-                    'icon'  => 'fas fa-fw fa-user',
-                    'can'   => 'users.index',
+                    'icon' => 'fas fa-fw fa-user',
+                    'can' => 'users.index',
                 ],
                 [
-                    'text'  => 'roles',
+                    'text' => 'roles',
                     'route' => 'roles.index',
-                    'icon'  => 'fas fa-fw fa-user-shield',
-                    'can'   => 'roles.index',
+                    'icon' => 'fas fa-fw fa-user-shield',
+                    'can' => 'roles.index',
                 ],
                 [
-                    'text'  => 'permissions',
+                    'text' => 'permissions',
                     'route' => 'permissions.index',
-                    'icon'  => 'fas fa-fw fa-lock',
-                    'can'   => 'permissions.index',
+                    'icon' => 'fas fa-fw fa-lock',
+                    'can' => 'permissions.index',
                 ],
             ],
         ],
 
-            
+
         [
             'text' => 'Domains',
-            'route'  => 'domains.index',
+            'route' => 'domains.index',
             'icon' => 'fas fa-fw fa-globe',
             'can' => 'domains.index',
         ],
         [
             'text' => 'Links',
-            'route'  => 'links.index',
+            'route' => 'links.index',
             'icon' => 'fas fa-fw fa-link',
             'can' => 'links.index',
         ],
         [
             'text' => 'Coupons',
-            'route'  => 'coupons.index',
-            'icon' => 'fas fa-fw fa-layer-group', //fa-layer-group
+            'route' => 'coupons.index',
+            'icon' => 'fas fa-fw fa-ticket',
+            // 'icon' => 'fas fa-fw fa-layer-group',
             'can' => 'coupons.index',
-           // 'label' => 'Coming soon',
-           // 'label_color' => 'info'
+            // 'label' => 'Coming soon',
+            // 'label_color' => 'info'
+        ],
+        [
+            'text' => 'Webinars',
+            'route' => 'webinars.index',
+            'icon' => 'fas fa-fw fa-brands fa-weixin',
+            'can' => 'webinars.index',
         ],
         [
             'text' => 'Close Pages',
             'route' => 'closepages.index',
             'icon' => 'fas fa-fw fa-door-open',
             'can' => 'closepages.index',
-        ] 
-/*
-        [
-            'text'       => 'productos',
-            'icon'        => 'fas fa-warehouse',
-            //'icon_color' => 'red',
-            'submenu' => [
+        ]
+        /*
                 [
-                    'text' => 'products',
-                    'route'  => 'products',
-                    'icon' => 'fas fa-fw fa-cart-arrow-down',
+                    'text'       => 'productos',
+                    'icon'        => 'fas fa-warehouse',
+                    //'icon_color' => 'red',
+                    'submenu' => [
+                        [
+                            'text' => 'products',
+                            'route'  => 'products',
+                            'icon' => 'fas fa-fw fa-cart-arrow-down',
+                        ],
+                        [
+                            'text' => 'payment_plan',
+                            'url'  => '#',
+                            'icon' => 'fas fa-file-word',
+                        ],
+                        [
+                            'text' => 'inventory',
+                            'url'  => '#',
+                            'icon' => 'fas fa-warehouse',
+                        ],
+                        [
+                            'text' => 'providers',
+                            'url'  => '#',
+                            'icon' => 'fas fa-store-alt',
+                        ],
+                    ],
                 ],
                 [
-                    'text' => 'payment_plan',
+                    'text' => 'quotes',
                     'url'  => '#',
-                    'icon' => 'fas fa-file-word',
+                    'icon' => 'fas fa-money-check-alt',
                 ],
                 [
-                    'text' => 'inventory',
+                    'text' => 'reports',
                     'url'  => '#',
-                    'icon' => 'fas fa-warehouse',
+                    'icon' => 'fas fa-clipboard-check',
                 ],
-                [
-                    'text' => 'providers',
-                    'url'  => '#',
-                    'icon' => 'fas fa-store-alt',
-                ],
-            ],
-        ],
-        [
-            'text' => 'quotes',
-            'url'  => '#',
-            'icon' => 'fas fa-money-check-alt',
-        ],
-        [
-            'text' => 'reports',
-            'url'  => '#',
-            'icon' => 'fas fa-clipboard-check',
-        ],
 
 
 
-        [
-            'text'    => 'libraries',
-            'icon' => 'fas fa-fw fa-users',
-            'submenu' => [
                 [
-                    'text' => 'cities',
-                    'url'  => '#',
-                    'icon' => 'fas fa-city',
+                    'text'    => 'libraries',
+                    'icon' => 'fas fa-fw fa-users',
+                    'submenu' => [
+                        [
+                            'text' => 'cities',
+                            'url'  => '#',
+                            'icon' => 'fas fa-city',
+                        ],
+                        [
+                            'text' => 'delivery_routes',
+                            'url'  => '#',
+                            'icon' => 'fas fa-route',
+                        ],
+                        [
+                            'text' => 'processes',
+                            'url'  => '#',
+                            'icon' => 'fas fa-gear',
+                        ],
+                    ]
                 ],
-                [
-                    'text' => 'delivery_routes',
-                    'url'  => '#',
-                    'icon' => 'fas fa-route',
-                ],
-                [
-                    'text' => 'processes',
-                    'url'  => '#',
-                    'icon' => 'fas fa-gear',
-                ],
-            ]
-        ],
-        */
+                */
 
     ],
 

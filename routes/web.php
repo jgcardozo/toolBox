@@ -38,5 +38,9 @@ Route::view('coupons', 'livewire.coupons.index')->name('coupons.index');
 
 Route::view('closepages', 'livewire.closepages.index')->name('closepages.index');
 
+//2023-07-19 13:50 jcardozo
+
+Route::view('webinars', 'livewire.webinars.index')->name('webinars.index');
+
 
 

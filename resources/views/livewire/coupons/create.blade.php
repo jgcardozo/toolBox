@@ -63,7 +63,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-dark close-btn" data-dismiss="modal"><i class="fas fa-solid fa-xmark-circle mr-2"></i>Close</button>
-                <button type="button" wire:click.prevent="store()" class="btn btn-sm btn-info close-modal" >Save <i class="fa fa-sd-card ml-2"></i></button>
+                <button wire:loading.attr="disabled" wire:target="store" type="button" wire:click.prevent="store()" class="btn btn-sm btn-info disabled:opacity-50" >Save <i class="fa fa-sd-card ml-2"></i></button>
             </div>
         </div>
     </div>

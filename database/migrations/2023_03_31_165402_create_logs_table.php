@@ -18,7 +18,7 @@ class CreateLogsTable extends Migration
             $table->string('action', 20);
             $table->string('keyword', 100); //column keyword at that model . ie: links ->alias
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->text('json_old');
+            $table->text('json_old')->nullable();
             $table->text('json_new')->nullable();
             $table->unsignedBigInteger('logable_id');
             $table->string('logable_type');
