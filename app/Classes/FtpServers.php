@@ -107,10 +107,11 @@ class FtpServers
 
             // https://hybridexpert.com/hyb-int-0423/wb-1-f-rg/v2/?test=erick  alias workshop
             $content = '<?php
-            $params =  "/?".http_build_query($_GET);
+            $params =  http_build_query($_GET);
             $long_url = "' . $long_url . '";
-            if(strlen($params)>2){
-                $long_url = $long_url . $params;
+            if (!empty($params)) {
+                $separator = (strpos($long_url, "?") !== false) ? "&" : "?";
+                $long_url .= $separator . $params;
             }
             header("Location: $long_url");
             exit;
